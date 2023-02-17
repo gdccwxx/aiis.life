@@ -2,6 +2,7 @@ import IconSearch from '@/components/icons/search';
 import React, { useRef, useState } from 'react';
 import InputBox from './InputBox';
 import ChatMessage from './ChatMessage';
+import { LoginModal } from '@/components/loginModal';
 
 const SearchPage: React.FC = () => {
   const [messages, setMessages] = useState([
@@ -105,7 +106,7 @@ const SearchPage: React.FC = () => {
             <InputBox
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              ref={inputRef}
+              inputRef={inputRef}
             >
               <button
                 type="submit"
@@ -117,6 +118,7 @@ const SearchPage: React.FC = () => {
           </form>
         </div>
       </div>
+      <LoginModal />
     </div>
   );
 };

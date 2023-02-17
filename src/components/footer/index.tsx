@@ -1,7 +1,4 @@
 import FooterBG from '@/assets/website/footer_background.png';
-import logo from '@/assets/logo.svg';
-import logoTitle from '@/assets/logo_title.svg';
-// import { Link } from '@chakra-ui/react';
 
 export default function Footer() {
   return (

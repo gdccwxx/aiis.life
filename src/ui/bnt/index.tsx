@@ -6,18 +6,21 @@ type RoundButtonProps = {
   className?: string;
   onClick?: () => void;
   isLoading?: boolean;
+  disabled?: boolean;
 };
 
 const RoundButton: FC<RoundButtonProps> = ({
   children,
   className,
   onClick,
-  isLoading
+  isLoading,
+  disabled
 }) => {
   return (
     <button
       className={`min-w-[132px] items-center justify-center rounded-full border px-7 py-1 text-lg hover:bg-gray-100 ${className}`}
       onClick={onClick}
+      disabled={disabled}
     >
       {isLoading ? (
         <div className="lds-spinner">

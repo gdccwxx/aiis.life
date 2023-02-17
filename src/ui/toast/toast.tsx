@@ -1,5 +1,3 @@
-'use client';
-
 import _toast, { Toaster as DefaultToaster } from 'react-hot-toast';
 
 const successIcon = (

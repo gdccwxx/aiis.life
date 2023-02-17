@@ -1,3 +1,6 @@
+import { getCookie } from './cookie';
+import { getApiUrl } from './helpers';
+
 interface RequestOptions extends RequestInit {
   responseType?:
     | 'TEXT'
@@ -20,12 +23,14 @@ const inital: RequestOptions = {
   },
   credentials: 'include',
   cache: 'no-cache',
+  mode: 'cors',
   responseType: 'JSON'
 };
 
 // 发送数据请求
 const request = async (url: string, config?: RequestOptions) => {
-  const finalUrl: string = url;
+  const finalUrl: string = getApiUrl(url);
+  console.log(finalUrl);
   const configs: RequestOptions = { ...inital, ...config };
   if (config && config.headers)
     configs.headers = { ...inital.headers, ...config.headers };
@@ -52,7 +57,7 @@ const request = async (url: string, config?: RequestOptions) => {
   return fetch(`${finalUrl}`, finalConfig)
     .then((response: Response) => {
       // 走到这边不一定是成功的：
-      // Fetch的特点的是，只要服务器有返回结果，不论状态码是多少，它都认为是成功
+      // Fetch 的特点的是，只要服务器有返回结果，不论状态码是多少，它都认为是成功
       const { status, statusText } = response;
 
       if (status >= 200 && status < 400) {

@@ -1,18 +1,18 @@
-import { HTMLAttributes, ReactNode } from 'react';
+import { HTMLAttributes, ReactNode, RefObject } from 'react';
 
 interface InputBoxProps extends HTMLAttributes<HTMLElement> {
-  ref: React.LegacyRef<HTMLInputElement> | undefined;
+  inputRef?: RefObject<HTMLInputElement>;
   value?: string;
   children?: ReactNode;
-  onChange?: (e) => void;
-  onEnter?: (e) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onEnter?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const InputBox = ({
+  inputRef,
   value,
-  onChange = () => null,
   children,
-  ref,
+  onChange,
   onEnter,
   ...rest
 }: InputBoxProps) => {
@@ -26,7 +26,7 @@ const InputBox = ({
         onChange={onChange}
         onKeyDown={onEnter}
         {...rest}
-        ref={ref}
+        ref={inputRef}
       />
       {children}
     </div>

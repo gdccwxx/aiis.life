@@ -5,7 +5,7 @@ import { ResTypeLogin, ResTypeRegister } from './interface/login';
  * @description 注册
  */
 export const apiUserRegisterPost = async (mail: string) => {
-  const res: ResTypeRegister = await request(`/api/be/buidler`, {
+  const res: ResTypeRegister = await request(`/api/user/register`, {
     method: 'POST',
     body: {
       email: mail

@@ -6,7 +6,7 @@ export const getBaseUrl = (url: string): string => {
   if (process.env.NODE_ENV === 'development') {
     // 开发环境 - 根据请求不同返回不同的BASE_URL
     if (url.includes('/api/')) {
-      BASE_URL = 'http://ai.exql.net';
+      BASE_URL = 'http://ai.exql.net/api';
     } else if (url.includes('/other-api/')) {
       BASE_URL = 'http://test-other-ai.exql.net';
     } else {
@@ -17,11 +17,11 @@ export const getBaseUrl = (url: string): string => {
   } else {
     // 生产环境
     if (url.includes('/api/')) {
-      BASE_URL = 'https://ai.exql.net';
+      BASE_URL = 'https://ai.exql.net/api';
     } else if (url.includes('/other-api/')) {
       BASE_URL = 'https://other-ai.exql.net';
     } else {
-      BASE_URL = 'https://ai.exql.net';
+      BASE_URL = 'https://ai.exql.net/api';
     }
     // 用于将api地址转换成https
     BASE_URL = BASE_URL.replace('http://', 'https://');
@@ -35,13 +35,17 @@ export const getBaseUrl = (url: string): string => {
 export const getApiUrl = (originUrl: string): string => {
   const baseUrl = import.meta.env.VITE_BASE_API_URL;
   let url: string = originUrl;
-  if (process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'grey') {
+  if (
+    process.env.NODE_ENV === 'prod' ||
+    process.env.NODE_ENV === 'development'
+  ) {
     if (originUrl.includes('/api/')) {
       url = url.split('/api')[1];
     }
     if (originUrl.includes('/other-api/')) {
       url = url.split('/other-api')[1];
     }
+
     return baseUrl + url;
   }
   return url;

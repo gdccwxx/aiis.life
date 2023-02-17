@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "d": "vite",
-    "dev": "vite --mode mock",
+    "dev": "vite --mode grey",
+    "dev:mock": "vite --mode mock",
     "dev:alpha": "vite --mode alpha",
     "dev:test": "vite --mode test",
     "dev:grey": "vite --mode grey",
