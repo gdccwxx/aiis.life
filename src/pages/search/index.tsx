@@ -1,8 +1,12 @@
 import IconSearch from '@/components/icons/search';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import InputBox from './InputBox';
 import ChatMessage from './ChatMessage';
 import { LoginModal } from '@/components/loginModal';
+import { apiSessionCreatePost, apiSessionGet } from '@/apis/session';
+import { apiChatPost } from '@/apis/message';
+import toast from '@/ui/toast/toast';
+import { getCookie } from '@/utils/cookie';
 
 const SearchPage: React.FC = () => {
   const [messages, setMessages] = useState([
@@ -17,18 +21,25 @@ const SearchPage: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const chatRef = useRef<HTMLDivElement>(null);
 
+  // 页面状态
+  const [msgPageLoading, setMsgPageLoading] = useState(false);
+  const [tabPageLoading, setTabPageLoading] = useState(false);
+
   // tab 点击态
   const [activeIndex, setActiveIndex] = useState(0);
   const handleTabClick = (index: number) => {
     setActiveIndex(index);
+    getMsgFromSession(index);
   };
 
-  const tabs = [
-    { title: 'Tab 3', content: 'Content 3' },
-    { title: 'Tab 4', content: 'Content 4' },
-    { title: 'Tab 5', content: 'Content 5' },
-    { title: 'Tab 10', content: 'Content 10' }
-  ];
+  const [tabs, setTabs] = useState([{ id: 0, title: '新会话' }]);
+
+  useEffect(() => {
+    const token = getCookie('token');
+    if (token) {
+      getSessionList();
+    }
+  }, []);
 
   // 提交请求
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -43,23 +54,114 @@ const SearchPage: React.FC = () => {
     };
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     // 设置缓存，用户发送失败重新发送
-    setInputLastValue(inputValue);
+    const submitString = inputValue.toString();
+    setInputLastValue(submitString);
 
     // 清空用户输入框
     setInputValue('');
     inputRef.current?.blur();
     handleAnimationEnd();
+
+    // 如果是新会话
+    if (activeIndex === 0) {
+      createSession(submitString);
+    } else {
+      getAnsRander(activeIndex, submitString);
+    }
+  };
+
+  // 创建 session
+  const createSession = async (msg: string) => {
+    const res = await apiSessionCreatePost();
+    if (res.code === 0) {
+      // 赋值 id
+      const newTab = {
+        id: res.data.id,
+        title: msg,
+        content: 'Content 3'
+      };
+      await getAnsRander(res.data.id, msg);
+      setTabs((preTabs) => [
+        ...preTabs.slice(0, 1),
+        newTab,
+        ...preTabs.slice(1)
+      ]);
+      setTimeout(() => {
+        if (chatRef.current) {
+          setActiveIndex(res.data.id);
+        }
+      }, 5);
+    }
   };
 
   // 请求回答并渲染
-  const getAnsRander = () => {
+  const getAnsRander = async (sessionId: number, msg: string) => {
     // 访问 api
+    const res = await apiChatPost(sessionId, msg);
+    if (res.code === 0) {
+      // 赋值 id
+      const ansMessage = {
+        id: messages.length + 1,
+        message: res.data,
+        isAI: true
+      };
+      setMessages((prevMessages) => [...prevMessages, ansMessage]);
+      handleAnimationEnd();
+    }
   };
 
   // 获取某个 session 历史消息
+  const getMsgFromSession = async (sessionId: number) => {
+    setMsgPageLoading(true);
+    try {
+      const res = await apiSessionGet(sessionId);
+      if (res.code === 0) {
+        if (res.data.length > 0) {
+          const messageList = res.data[0].prompt.map((msg, index) => {
+            const isAI = msg.toString().startsWith('\nAI');
+            const msgStartIndex = msg.indexOf(':') + 1;
+            return {
+              id: index,
+              message: msg.toString().slice(msgStartIndex),
+              isAI: isAI
+            };
+          });
+          setMessages(messageList);
+        } else {
+          setMessages([]);
+        }
+        handleAnimationEnd();
+      }
+    } catch (error: any) {
+      toast.warning(error.toString());
+    } finally {
+      setMsgPageLoading(false);
+    }
+  };
 
-  // 创建 session
+  // 获取 session 列表
+  const getSessionList = async () => {
+    setTabPageLoading(true);
+    try {
+      const res = await apiSessionGet();
+      if (res.code === 0) {
+        const sessionList = res.data.map((session) => {
+          return {
+            id: session.id,
+            title: session.title
+          };
+        });
+        setTabs((preTabs) => [...preTabs.slice(0, 1), ...sessionList]);
+        handleAnimationEnd();
+      }
+    } catch (error: any) {
+      toast.warning(error.toString());
+    } finally {
+      setTabPageLoading(false);
+    }
+  };
 
+  // 发消息后滑动到底部
   const handleAnimationEnd = () => {
     setTimeout(() => {
       if (chatRef.current) {
@@ -72,17 +174,19 @@ const SearchPage: React.FC = () => {
     <div className="flex h-screen bg-gray-100">
       <div className="invisible w-0 md:visible md:w-1/4">
         <div className="flex h-screen flex-col overflow-y-scroll">
-          {tabs.map((tab, index) => (
-            <button
-              key={index}
-              className={`w-full py-2 px-4 ${
-                index === activeIndex ? 'bg-blue-600' : 'bg-gray-200'
-              }`}
-              onClick={() => handleTabClick(index)}
-            >
-              {tab.title}
-            </button>
-          ))}
+          {tabPageLoading
+            ? '加载中'
+            : tabs.map((tab, index) => (
+                <button
+                  key={index}
+                  className={`w-full py-2 px-4 ${
+                    tab.id === activeIndex ? 'bg-blue-600' : 'bg-gray-200'
+                  }`}
+                  onClick={() => handleTabClick(tab.id)}
+                >
+                  {tab.title}
+                </button>
+              ))}
         </div>
       </div>
       <div

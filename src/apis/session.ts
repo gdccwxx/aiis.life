@@ -5,9 +5,8 @@ import { ResTypeSessionCreate, ResTypeSessionList } from './interface/session';
  * @description 获取 Session 列表
  */
 export const apiSessionGet = async (id?: number) => {
-  const res: ResTypeSessionList = await request(
-    `/api/session` + id ? `?id=${id}` : ''
-  );
+  const url = id ? `/api/session?id=${id}` : `/api/session`;
+  const res: ResTypeSessionList = await request(url);
   return res;
 };
 

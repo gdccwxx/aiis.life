@@ -3,3 +3,9 @@ export interface ResTypeSessionCreate {
   msg: string;
   data: string;
 }
+
+export interface ResTypeChatAns {
+  code: number;
+  msg: string;
+  data: string;
+}

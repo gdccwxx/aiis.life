@@ -1,3 +1,4 @@
+import toast from '@/ui/toast/toast';
 import { getCookie } from './cookie';
 import { getApiUrl } from './helpers';
 
@@ -80,6 +81,12 @@ const request = async (url: string, config?: RequestOptions) => {
             result = response.json();
         }
         return result;
+      } else if (status === 401) {
+        toast.warning('登录身份过期');
+        const currentUrl = window.location.href;
+        window.location.replace(
+          `/login?redirectUrl=${encodeURIComponent(currentUrl)}`
+        );
       }
       // 应该是失败的处理
       throw new Error(`${status} ${statusText}`);

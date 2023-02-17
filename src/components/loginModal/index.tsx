@@ -1,10 +1,15 @@
 import { apiUserLoginPost, apiUserRegisterPost } from '@/apis/login';
 import RoundButton from '@/ui/bnt';
 import toast from '@/ui/toast/toast';
+import { setCookie } from '@/utils/cookie';
 import { FC, useEffect, useRef, useState } from 'react';
 
-export const LoginModal: FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+type Props = {
+  defaultOpen?: boolean;
+};
+
+export const LoginModal: FC<Props> = ({ defaultOpen = false }) => {
+  const [isModalOpen, setIsModalOpen] = useState(defaultOpen);
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
   const [countdown, setCountdown] = useState(0);
@@ -17,7 +22,12 @@ export const LoginModal: FC = () => {
   // 模拟本地缓存
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
+    if (defaultOpen) {
+      setTimeout(() => {
+        setIsLogin(false);
+        setIsModalOpen(true);
+      }, 3);
+    } else if (token) {
       setIsModalOpen(false);
       setIsLogin(true);
     } else {
@@ -76,8 +86,19 @@ export const LoginModal: FC = () => {
       const res = await apiUserLoginPost(email, code);
       if (res.data && res.code == 0) {
         localStorage.setItem('token', res.data);
+        setCookie('token', res.data);
         toast.success('登录成功');
         setIsModalOpen(false);
+        const searchParams = new URLSearchParams(window.location.search);
+        const redirectUrl = searchParams.get('redirectUrl');
+        console.log(redirectUrl);
+
+        if (redirectUrl) {
+          window.location.replace(redirectUrl);
+        } else {
+          // 如果没有重定向 URL，则重定向到默认页面
+          window.location.replace('/search');
+        }
       } else {
         toast.error('验证码错误');
       }
