@@ -1,4 +1,4 @@
-import { apiUserRegisterPost } from '@/apis/login';
+import { apiUserLoginPost, apiUserRegisterPost } from '@/apis/login';
 import RoundButton from '@/ui/bnt';
 import toast from '@/ui/toast/toast';
 import { FC, useEffect, useRef, useState } from 'react';
@@ -49,11 +49,10 @@ export const LoginModal: FC = () => {
       setIsCodeLoading(true);
       // 发送获取验证码的请求
       try {
-        // 模拟请求延迟
         const res = await apiUserRegisterPost(email);
         setCountdown(60);
         if (res.code == 0) {
-          toast.success('登录成功');
+          toast.success('发送成功');
         } else {
           toast.error('服务器异常，请稍后再试');
         }
@@ -68,18 +67,22 @@ export const LoginModal: FC = () => {
   // 处理登录点击事件
   const handleLoginClick = async () => {
     if (!email || !code) {
+      toast.warning('请填写完整信息');
       return;
     }
     setIsLoading(true);
     // 发送登录请求
     try {
-      // 模拟请求延迟
-      setIsModalOpen(false);
-      // await new Promise((resolve) => setTimeout(resolve, 1000));
-      // localStorage.setItem('token', 'fake_token');
-      // setIsLogin(true);
-    } catch (error) {
-      console.log(error);
+      const res = await apiUserLoginPost(email, code);
+      if (res.data && res.code == 0) {
+        localStorage.setItem('token', res.data);
+        toast.success('登录成功');
+        setIsModalOpen(false);
+      } else {
+        toast.error('验证码错误');
+      }
+    } catch (error: any) {
+      toast.error(error.toString());
     } finally {
       setIsLoading(false);
     }
@@ -99,7 +102,7 @@ export const LoginModal: FC = () => {
                 <input
                   type="email"
                   id="email"
-                  className="w-full rounded border border-gray-400 px-3 py-2"
+                  className="w-full rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800"
                   placeholder="邮箱"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -110,7 +113,7 @@ export const LoginModal: FC = () => {
                 <input
                   type="text"
                   id="code"
-                  className="mr-2 w-full rounded border border-gray-400 px-3 py-2"
+                  className="mr-3 grow rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800"
                   value={code}
                   placeholder="验证码"
                   onChange={(e) => setCode(e.target.value)}
@@ -119,17 +122,19 @@ export const LoginModal: FC = () => {
                 <RoundButton
                   onClick={handleGetCodeClick}
                   disabled={countdown > 0 || isLoading}
-                  className="h-20 text-sm"
+                  className="grow-0 rounded text-sm text-slate-600"
+                  isLoading={isCodeLoading}
                 >
                   {countdown > 0 ? `${countdown}` : '获取验证码'}
                 </RoundButton>
               </div>
               <RoundButton
-                className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+                className="mt-4 h-10 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
                 disabled={!email || !code || isLoading}
                 onClick={handleLoginClick}
+                isLoading={isLoading}
               >
-                {isLoading ? '正在登录...' : '登录'}
+                登录
               </RoundButton>
             </div>
           </div>

@@ -7,5 +7,5 @@ export interface ResTypeRegister {
 export interface ResTypeLogin {
   code: number;
   msg: string;
-  data: string; // token
+  data?: string; // token
 }
