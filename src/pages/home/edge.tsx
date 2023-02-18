@@ -4,20 +4,19 @@ export default function EdgeWidget() {
       <div className="text-sm">
         <div className="mx-4 my-60 items-center justify-center text-center text-lg">
           <p className="mt-12 mb-14 text-center text-[35px] font-bold text-[#e6e6e6]">
-            Edge
+            下一步
           </p>
           <p className="mt-12 mb-14 text-center font-serif text-lg font-thin text-[#c8c8c8]">
-            🦄 Top token HODL and lead investor in many cases
+            🦄 适应更多国家的法律 2023.Q1
           </p>
           <p className="mt-12 mb-14 text-center font-serif text-lg font-thin text-[#c8c8c8]">
-            💄 Wide deal resourcing channels with global/local VC partners in
-            Asia, EU, US
+            🌟 更加智能的意图理解 2023.Q1
           </p>
           <p className="mt-12 mb-14 text-center font-serif text-lg font-thin text-[#c8c8c8]">
-            🌟 Superior Post-investment Service
+            🔥 在细分领域更加出色 2023.Q2
           </p>
           <p className="mt-12 mb-14 text-center font-serif text-lg font-thin text-[#c8c8c8]">
-            🔥 Providing entrepreneurs comprehensive BUIDL service
+            💄 新增交互和用户激励 2023.Q3
           </p>
         </div>
       </div>
