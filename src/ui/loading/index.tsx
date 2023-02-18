@@ -1,8 +1,50 @@
-import { LoaderLine } from '@/ui/icon/icons';
-import { IconBaseProps } from 'react-icons';
+import { keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
 
-const Loading = (props: IconBaseProps) => (
-  <LoaderLine {...props} className="animate-spin" />
+const spinAnimation = keyframes`
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 1000;
+`;
+
+const Spinner = styled.div`
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+
+  &:after {
+    content: '';
+    display: block;
+    width: 46px;
+    height: 46px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: ${spinAnimation} 1.2s linear infinite;
+  }
+`;
+
+const Loading = () => (
+  <Overlay>
+    <Spinner />
+  </Overlay>
 );
 
 export default Loading;

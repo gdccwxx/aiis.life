@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-// import { githubGist } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { HiClipboardCopy } from 'react-icons/hi';
 import toast from '@/ui/toast/toast';
+import { CopyButton } from '@/components/copyBnt';
 interface MarkdownRendererProps {
   markdown: string;
 }
@@ -13,6 +12,11 @@ interface MarkdownRendererProps {
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
   markdown
 }) => {
+  const copyTextRef = useRef(null);
+  // React.useEffect(() => {
+  //   const clipboard = new ClipboardJS(copyTextRef.current);
+  // }, []);
+
   return (
     <ReactMarkdown
       remarkPlugins={[gfm]}
@@ -24,17 +28,14 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
             <div className="my-2 rounded-lg bg-[#2b2b2b] text-sm">
               <div className="flex rounded-t-lg bg-slate-600 py-2 px-4">
                 <div className="grow text-gray-200">{match[1]}</div>
-                <div
-                  className="flex cursor-pointer gap-2"
-                  onClick={() => {
-                    toast.success('Copy Success!');
-                  }}
-                >
-                  <HiClipboardCopy size={18} color="rgb(229 231 235)" />
-                  <p className="text-gray-200">Copy</p>
-                </div>
+                <CopyButton text={String(children)} />
               </div>
-              <div className="max-w-3/4 p-2">
+              <div
+                className="w-full max-w-md p-2 md:w-[50vw]"
+                style={{ maxWidth: '90vw' }}
+                ref={copyTextRef}
+                data-clipboard-text={children}
+              >
                 <SyntaxHighlighter
                   children={String(children).replace(/\n$/, '')}
                   language={match[1]}
