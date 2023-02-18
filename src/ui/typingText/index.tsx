@@ -22,7 +22,7 @@ const TypingText: React.FC<TextProps> = ({ text, speed, className }) => {
     return () => clearInterval(textInterval);
   }, [text, speed]);
 
-  return <div className={`text-base ${className}`}>{currentText}</div>;
+  return <div className={`${className}`}>{currentText}</div>;
 };
 
 export default TypingText;
