@@ -77,7 +77,7 @@ const TagInput: FC<TagInputProps> = ({
         ))}
         <div className="flex items-center justify-between">
           <input
-            className={`border-[none] w-[100%] py-[15px] px-[5px] text-left text-[14px] leading-[20px] outline-none placeholder:text-[#b7b7b7]`}
+            className={`w-[100%] border-[none] py-[15px] px-[5px] text-left text-[14px] leading-[20px] outline-none placeholder:text-[#b7b7b7]`}
             placeholder={placeholder}
             onKeyUp={handleKeyup}
             onChange={handleChange}

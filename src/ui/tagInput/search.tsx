@@ -114,7 +114,7 @@ const TagSearchInput: FC<TagSearchInputProps> = ({
                 key={index}
                 className={`mx-[5px] flex h-[20px] animate-[opacityappear_1s_ease-in-out] items-center justify-evenly rounded-[10px] bg-[#ebebeb] px-4 text-black`}
               >
-                <Typography className="break-keep whitespace-nowrap text-left text-[14px] leading-[20px]">
+                <Typography className="whitespace-nowrap break-keep text-left text-[14px] leading-[20px]">
                   {e}
                 </Typography>
                 <CloseLine
@@ -124,7 +124,7 @@ const TagSearchInput: FC<TagSearchInputProps> = ({
               </div>
             ))}
             <input
-              className={`border-[none] min-w-[100px] py-1 px-2 text-left text-[14px] leading-[20px] outline-none placeholder:text-[#b7b7b7]`}
+              className={`min-w-[100px] border-[none] py-1 px-2 text-left text-[14px] leading-[20px] outline-none placeholder:text-[#b7b7b7]`}
               value={keyword}
               placeholder={placeholder}
               onKeyUp={handleKeyup}
