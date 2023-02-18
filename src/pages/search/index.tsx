@@ -179,7 +179,7 @@ const SearchPage: React.FC = () => {
             : tabs.map((tab, index) => (
                 <button
                   key={index}
-                  className={`w-full py-2 px-4 ${
+                  className={`w-full py-2 px-4 text-left ${
                     tab.id === activeIndex ? 'bg-blue-600' : 'bg-gray-200'
                   }`}
                   onClick={() => handleTabClick(tab.id)}
@@ -194,7 +194,7 @@ const SearchPage: React.FC = () => {
         onAnimationEnd={handleAnimationEnd}
       >
         <div
-          className="absolute top-0 bottom-[145px] w-full overflow-y-scroll py-0 px-4 md:w-3/4"
+          className="absolute top-0 bottom-[145px] w-full overflow-y-scroll px-4 pt-3 md:w-3/4"
           ref={chatRef}
         >
           {messages.map((message) => (
