@@ -17,7 +17,7 @@ export default function Footer() {
             <p className="text-left font-serif text-lg font-thin text-[#ebebeb]">
               非常期待致力于更好的中文 AI
               搜索/问答系统的科学家、工程师、产品经理和设计师加入我们{' '}
-              <a href="https://twitter.com">Incubated by @AI is Life</a>
+              <a href="aboutmydreams@163.com">Incubated by @DSearch</a>
             </p>
           </div>
 
