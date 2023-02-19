@@ -15,13 +15,13 @@ export default function HomeBanner() {
         backgroundRepeat: 'no-repeat'
       }}
     >
-      <div className="absolute top-1/3 left-1/2 w-full translate-x-[-50%] translate-y-[-50%] px-20 text-sm md:px-80">
+      <div className="absolute top-1/3 left-1/2 w-full translate-x-[-50%] translate-y-[-50%] px-[2rem] text-sm md:px-80">
         <div className="h-80"></div>
         <div className="mt-[10rem] mb-20 text-center text-6xl font-bold text-white">
           <TypingText
             text="DSearch"
             speed={100}
-            className="text-[80px] text-white"
+            className="font-mono text-[80px] text-white"
           />
         </div>
         <div className="flex w-full items-center justify-center">
@@ -49,9 +49,9 @@ export default function HomeBanner() {
           </button>
         </div>
         <TypingText
-          text="AI Life is using AI finish the work which is so boring."
+          text="AI Life is all about using AI to do the boring stuff."
           speed={100}
-          className="mx-0 mt-10 mb-80 text-center font-serif text-lg font-thin text-[#c8c8c8] md:mx-auto"
+          className="mx-0 mt-10 mb-80 text-center font-mono text-lg font-thin text-[#c8c8c8] md:mx-auto"
         />
       </div>
     </div>

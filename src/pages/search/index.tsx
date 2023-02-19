@@ -7,6 +7,7 @@ import { apiSessionCreatePost, apiSessionGet } from '@/apis/session';
 import { apiChatPost } from '@/apis/message';
 import toast from '@/ui/toast/toast';
 import { getCookie } from '@/utils/cookie';
+import Loading from '@/ui/loading';
 
 const SearchPage: React.FC = () => {
   const [messages, setMessages] = useState([
@@ -174,19 +175,21 @@ const SearchPage: React.FC = () => {
     <div className="flex h-screen bg-gray-100">
       <div className="invisible w-0 md:visible md:w-1/4">
         <div className="flex h-screen flex-col overflow-y-scroll">
-          {tabPageLoading
-            ? '加载中'
-            : tabs.map((tab, index) => (
-                <button
-                  key={index}
-                  className={`w-full py-2 px-4 text-left ${
-                    tab.id === activeIndex ? 'bg-blue-600' : 'bg-gray-200'
-                  }`}
-                  onClick={() => handleTabClick(tab.id)}
-                >
-                  {tab.title}
-                </button>
-              ))}
+          {tabPageLoading ? (
+            <Loading />
+          ) : (
+            tabs.map((tab, index) => (
+              <button
+                key={index}
+                className={`w-full py-2 px-4 text-left ${
+                  tab.id === activeIndex ? 'bg-blue-600' : 'bg-gray-200'
+                }`}
+                onClick={() => handleTabClick(tab.id)}
+              >
+                {tab.title}
+              </button>
+            ))
+          )}
         </div>
       </div>
       <div
