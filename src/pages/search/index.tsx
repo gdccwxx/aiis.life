@@ -7,16 +7,20 @@ import { apiSessionCreatePost, apiSessionGet } from '@/apis/session';
 import { apiChatPost } from '@/apis/message';
 import toast from '@/ui/toast/toast';
 import { getCookie } from '@/utils/cookie';
-import Loading from '@/ui/loading';
+import TypingText from '@/ui/typingText';
+import IssueTab from './IssueTab';
+import { Loading, LoadingPage } from '@/ui/loading';
+
+const firstMsg = {
+  id: 1,
+  message: '你好，欢迎使用搜索引擎！',
+  isAI: true
+};
+
+const firstTab = { id: 0, title: '+ 新会话' };
 
 const SearchPage: React.FC = () => {
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      message: '你好，欢迎使用搜索引擎！',
-      isAI: true
-    }
-  ]);
+  const [messages, setMessages] = useState([firstMsg]);
   const [inputValue, setInputValue] = useState('');
   const [inputLastValue, setInputLastValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -29,11 +33,12 @@ const SearchPage: React.FC = () => {
   // tab 点击态
   const [activeIndex, setActiveIndex] = useState(0);
   const handleTabClick = (index: number) => {
+    if (index === activeIndex) return;
     setActiveIndex(index);
     getMsgFromSession(index);
   };
 
-  const [tabs, setTabs] = useState([{ id: 0, title: '新会话' }]);
+  const [tabs, setTabs] = useState([firstTab]);
 
   useEffect(() => {
     const token = getCookie('token');
@@ -111,10 +116,20 @@ const SearchPage: React.FC = () => {
     }
   };
 
+  // 重新请求回答 inputLastValue
+  const getAnsRanderAgain = async (sessionId: number) => {
+    // 访问 api
+    await getAnsRander(sessionId, inputLastValue);
+  };
+
   // 获取某个 session 历史消息
   const getMsgFromSession = async (sessionId: number) => {
-    setMsgPageLoading(true);
+    if (sessionId === 0) {
+      setMessages([firstMsg]);
+      return;
+    }
     try {
+      setMsgPageLoading(true);
       const res = await apiSessionGet(sessionId);
       if (res.code === 0) {
         if (res.data.length > 0) {
@@ -152,6 +167,7 @@ const SearchPage: React.FC = () => {
             title: session.title
           };
         });
+        sessionList.reverse();
         setTabs((preTabs) => [...preTabs.slice(0, 1), ...sessionList]);
         handleAnimationEnd();
       }
@@ -176,18 +192,15 @@ const SearchPage: React.FC = () => {
       <div className="invisible w-0 md:visible md:w-1/4">
         <div className="flex h-screen flex-col overflow-y-scroll">
           {tabPageLoading ? (
-            <Loading />
+            <LoadingPage />
           ) : (
             tabs.map((tab, index) => (
-              <button
+              <IssueTab
                 key={index}
-                className={`w-full py-2 px-4 text-left ${
-                  tab.id === activeIndex ? 'bg-blue-600' : 'bg-gray-200'
-                }`}
+                title={tab.title}
                 onClick={() => handleTabClick(tab.id)}
-              >
-                {tab.title}
-              </button>
+                isActive={tab.id === activeIndex}
+              />
             ))
           )}
         </div>
@@ -200,13 +213,17 @@ const SearchPage: React.FC = () => {
           className="absolute top-0 bottom-[145px] w-full overflow-y-scroll px-4 pt-3 md:w-3/4"
           ref={chatRef}
         >
-          {messages.map((message) => (
-            <ChatMessage
-              key={message.id}
-              message={message.message}
-              isAI={message.isAI}
-            />
-          ))}
+          {msgPageLoading ? (
+            <Loading />
+          ) : (
+            messages.map((message) => (
+              <ChatMessage
+                key={message.id}
+                message={message.message}
+                isAI={message.isAI}
+              />
+            ))
+          )}
         </div>
         <div className="absolute bottom-0 w-full bg-gray-50 p-4 md:w-3/4">
           <form onSubmit={handleSubmit}>

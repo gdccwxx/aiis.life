@@ -1,3 +1,4 @@
+import { HashLoader } from 'react-spinners';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
@@ -36,15 +37,21 @@ const Spinner = styled.div`
     margin: 1px;
     border-radius: 50%;
     border: 5px solid #fff;
-    border-color: #fff transparent #fff transparent;
+    border-color: #00bfff transparent #00bfff transparent;
     animation: ${spinAnimation} 1.2s linear infinite;
   }
 `;
 
-const Loading = () => (
+export const LoadingPage = () => (
   <Overlay>
     <Spinner />
   </Overlay>
 );
 
-export default Loading;
+export const Loading = () => {
+  return (
+    <div className="absolute top-0 left-0 z-50 flex h-full w-full items-center justify-center bg-white bg-opacity-60">
+      <HashLoader size={60} color="#3182ce" loading={true} />
+    </div>
+  );
+};

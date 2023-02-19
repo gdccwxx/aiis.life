@@ -9,12 +9,12 @@ export default function Footer() {
       ></img>
       <div className="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] text-sm">
         <div>
-          <p className="mb-6 text-center font-mono text-3xl font-bold text-[#e6e6e6]">
-            联系我们
+          <p className="mb-6 text-center font-mono text-xl font-bold text-[#e6e6e6]">
+            Contact us
           </p>
           <div className="flex flex-wrap content-start">
             <div className="mr-6 mb-3 flex items-center" />
-            <p className="text-left font-mono text-lg font-thin text-[#ebebeb]">
+            <p className="text-left font-mono text-base font-thin text-[#ebebeb]">
               非常期待致力于更好的中文 AI
               搜索/问答系统的科学家、工程师、产品经理和设计师加入我们{' '}
               <a href="mailto:aboutmydreams@163.com">Incubated by @DSearch</a>
