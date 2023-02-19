@@ -7,20 +7,17 @@ import { apiSessionCreatePost, apiSessionGet } from '@/apis/session';
 import { apiChatPost } from '@/apis/message';
 import toast from '@/ui/toast/toast';
 import { getCookie } from '@/utils/cookie';
-import TypingText from '@/ui/typingText';
 import IssueTab from './IssueTab';
 import { Loading, LoadingPage } from '@/ui/loading';
-
-const firstMsg = {
-  id: 1,
-  message: '你好，欢迎使用搜索引擎！',
-  isAI: true
-};
-
-const firstTab = { id: 0, title: '+ 新会话' };
+import {
+  firstMsgConfig,
+  firstTabConfig,
+  newUserFirstMsgConfig
+} from './initConfig';
+import { getQueryString, setSearchParam } from '@/utils/helpers';
 
 const SearchPage: React.FC = () => {
-  const [messages, setMessages] = useState([firstMsg]);
+  const [messages, setMessages] = useState([firstMsgConfig]);
   const [inputValue, setInputValue] = useState('');
   const [inputLastValue, setInputLastValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -32,18 +29,26 @@ const SearchPage: React.FC = () => {
 
   // tab 点击态
   const [activeIndex, setActiveIndex] = useState(0);
-  const handleTabClick = (index: number) => {
-    if (index === activeIndex) return;
-    setActiveIndex(index);
-    getMsgFromSession(index);
+  const handleTabClick = (sessionId: number) => {
+    if (sessionId === activeIndex) return;
+    setActiveIndex(sessionId);
+    setSearchParam('sessionId', sessionId.toString());
+    getMsgFromSession(sessionId);
   };
 
-  const [tabs, setTabs] = useState([firstTab]);
+  const [tabs, setTabs] = useState([firstTabConfig]);
 
+  let firstLoad = true;
   useEffect(() => {
     const token = getCookie('token');
-    if (token) {
-      getSessionList();
+    const querySessionId = getQueryString('sessionId');
+    const defaultSessionId = isNaN(Number(String(querySessionId)))
+      ? 0
+      : Number(String(querySessionId));
+
+    if (token && firstLoad) {
+      getSessionList(defaultSessionId);
+      firstLoad = false;
     }
   }, []);
 
@@ -95,8 +100,9 @@ const SearchPage: React.FC = () => {
       setTimeout(() => {
         if (chatRef.current) {
           setActiveIndex(res.data.id);
+          setSearchParam('sessionId', res.data.id.toString());
         }
-      }, 5);
+      }, 3);
     }
   };
 
@@ -125,7 +131,7 @@ const SearchPage: React.FC = () => {
   // 获取某个 session 历史消息
   const getMsgFromSession = async (sessionId: number) => {
     if (sessionId === 0) {
-      setMessages([firstMsg]);
+      setMessages([firstMsgConfig]);
       return;
     }
     try {
@@ -156,7 +162,7 @@ const SearchPage: React.FC = () => {
   };
 
   // 获取 session 列表
-  const getSessionList = async () => {
+  const getSessionList = async (toSessionId = 0) => {
     setTabPageLoading(true);
     try {
       const res = await apiSessionGet();
@@ -168,7 +174,25 @@ const SearchPage: React.FC = () => {
           };
         });
         sessionList.reverse();
+        const sessionIdList = sessionList.map((session) => session.id);
         setTabs((preTabs) => [...preTabs.slice(0, 1), ...sessionList]);
+
+        if (sessionList.length === 0) {
+          // 新用户
+          setMessages([newUserFirstMsgConfig]);
+        } else if (
+          sessionList.length > 0 &&
+          sessionIdList.includes(toSessionId)
+        ) {
+          setActiveIndex(toSessionId);
+          setSearchParam('sessionId', toSessionId.toString());
+          getMsgFromSession(toSessionId);
+        } else {
+          setActiveIndex(sessionList[0].id);
+          setSearchParam('sessionId', sessionList[0].id.toString());
+          getMsgFromSession(sessionList[0].id);
+        }
+
         handleAnimationEnd();
       }
     } catch (error: any) {

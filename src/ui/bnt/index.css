@@ -22,7 +22,7 @@
   width: 3px;
   height: 4px;
   border-radius: 50%;
-  background: rgb(255 183 2);
+  background: rgb(50, 46, 255);
 }
 
 .lds-spinner div:nth-child(1) {

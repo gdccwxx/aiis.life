@@ -59,7 +59,19 @@ export const getQueryString = (name: string): string | null => {
   const r = window.location.search.substr(1).match(reg);
   if (r != null) return decodeURIComponent(r[2]);
   return null;
+  // const searchParams = new URLSearchParams(window.location.search);
+  // return searchParams.get(name);
 };
+
+/**
+ * @description 设置 queryString
+ */
+export function setSearchParam(param: string, value: string) {
+  const searchParams = new URLSearchParams(window.location.search);
+  searchParams.set(param, value);
+  const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
+  window.history.replaceState({}, '', newUrl);
+}
 
 /**
  * @description 获取token
