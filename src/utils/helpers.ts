@@ -52,7 +52,7 @@ export const getApiUrl = (originUrl: string): string => {
 };
 
 /**
- * @description 获取queryString
+ * @description 获取 queryString
  */
 export const getQueryString = (name: string): string | null => {
   const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
@@ -71,6 +71,19 @@ export function setSearchParam(param: string, value: string) {
   searchParams.set(param, value);
   const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
   window.history.replaceState({}, '', newUrl);
+}
+
+/**
+ * @description 删除某个 queryString
+ */
+export function deleteSearchParam(key: string) {
+  const searchParams = new URLSearchParams(window.location.search);
+  searchParams.delete(key);
+  window.history.replaceState(
+    {},
+    '',
+    `${window.location.pathname}?${searchParams.toString()}`
+  );
 }
 
 /**

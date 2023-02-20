@@ -1,10 +1,13 @@
 import Bg from '@/assets/website/cool_background.svg';
 import TypingText from '@/ui/typingText';
+import { useRef, useState } from 'react';
 import SearchInput from './searchInput';
 // 打字动效
 // https://readme-typing-svg.herokuapp.com/demo/
 
 export default function HomeBanner() {
+  const [ask, setAsk] = useState('');
+  const askInputRef = useRef<HTMLInputElement>(null);
   return (
     <div
       className="relative h-[700px] w-full"
@@ -27,12 +30,18 @@ export default function HomeBanner() {
         <div className="flex w-full items-center justify-center">
           <input
             type="text"
+            id="askInput"
             placeholder="Search here"
+            onChange={(e) => setAsk(e.target.value)}
+            value={ask}
+            ref={askInputRef}
             className="w-full rounded-l-md bg-gray-800 py-2 px-4 text-white outline-none"
           />
           <button
             className="rounded-r-md bg-blue-600 py-2 px-4"
-            onClick={() => window.location.replace('/search')}
+            onClick={() =>
+              window.location.replace(`/search?sessionId=0&ask=${ask}`)
+            }
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
