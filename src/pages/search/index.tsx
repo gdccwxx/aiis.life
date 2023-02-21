@@ -253,7 +253,7 @@ const SearchPage: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100 dark:bg-gray-800">
       <div className="invisible w-0 md:visible md:w-1/4">
         <div className="flex h-screen flex-col overflow-y-scroll">
           {tabPageLoading || askFromUrlLoading ? (
@@ -271,7 +271,7 @@ const SearchPage: React.FC = () => {
         </div>
       </div>
       <div
-        className="h-screen w-full divide-y divide-gray-200 rounded-lg shadow-xl md:w-3/4"
+        className="h-screen w-full divide-y divide-gray-200 rounded-lg shadow-xl dark:divide-gray-700 md:w-3/4"
         onAnimationEnd={handleAnimationEnd}
       >
         <div
@@ -290,7 +290,7 @@ const SearchPage: React.FC = () => {
             ))
           )}
         </div>
-        <div className="absolute bottom-0 w-full bg-gray-50 p-4 md:w-3/4">
+        <div className="absolute bottom-0 w-full bg-gray-50 p-4 dark:bg-gray-900 md:w-3/4">
           <form onSubmit={handleSubmit}>
             <InputBox
               value={inputValue}
@@ -299,7 +299,7 @@ const SearchPage: React.FC = () => {
             >
               <button
                 type="submit"
-                className="w-14 rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+                className="w-14 rounded-r bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
               >
                 <IconSearch className="h-6 w-6" />
               </button>

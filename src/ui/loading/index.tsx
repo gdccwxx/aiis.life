@@ -50,7 +50,7 @@ export const LoadingPage = () => (
 
 export const Loading = () => {
   return (
-    <div className="absolute top-0 left-0 z-50 flex h-full w-full items-center justify-center bg-white bg-opacity-60">
+    <div className="absolute top-0 left-0 z-50 flex h-full w-full items-center justify-center bg-white bg-opacity-60 dark:bg-gray-800">
       <HashLoader size={60} color="#3182ce" loading={true} />
     </div>
   );

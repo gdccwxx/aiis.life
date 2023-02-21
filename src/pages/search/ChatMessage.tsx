@@ -60,7 +60,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
             </div>
           ) : (
             <code
-              className={`mx-[1px] rounded-sm bg-gray-100 px-1 font-mono font-bold ${className}`}
+              className={`mx-[1px] rounded-sm bg-gray-100 px-1 py-[2px] font-mono font-bold dark:bg-gray-700 ${className}`}
               {...props}
             >
               {children}
@@ -83,8 +83,8 @@ const ChatMessage: React.FC<Props> = ({ message, isAI }) => {
       <div
         className={`rounded-lg px-4 py-2 ${
           isAI
-            ? 'mr-4 bg-gray-200 text-gray-700'
-            : 'ml-4 bg-blue-500 text-white'
+            ? 'mr-4 bg-gray-200 text-gray-700 dark:bg-gray-900 dark:text-gray-400'
+            : 'ml-4 bg-blue-500 text-white dark:bg-blue-700 dark:text-gray-300'
         }`}
       >
         <MarkdownRenderer markdown={message} />

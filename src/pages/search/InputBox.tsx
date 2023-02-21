@@ -21,7 +21,7 @@ const InputBox = ({
       <input
         id="search-input"
         type="text"
-        className="w-11/12 rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800"
+        className="w-11/12 rounded-l-lg border border-gray-200 bg-gray-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
         value={value}
         onChange={onChange}
         onKeyDown={onEnter}
