@@ -38,7 +38,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
                 />
               </div>
             </div>
-          ) : (
+          ) : String(children).length > 20 ? (
             <div className="my-2 rounded-lg bg-[#2b2b2b] text-sm">
               <div className="flex rounded-t-lg bg-slate-600 py-2 px-4">
                 <div className="grow text-gray-200">unknow</div>
@@ -58,6 +58,13 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
                 />
               </div>
             </div>
+          ) : (
+            <code
+              className={`mx-[1px] rounded-sm bg-gray-100 px-1 font-mono font-bold ${className}`}
+              {...props}
+            >
+              {children}
+            </code>
           );
         }
       }}

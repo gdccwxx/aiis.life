@@ -9,6 +9,7 @@ import toast from '@/ui/toast/toast';
 import { getCookie } from '@/utils/cookie';
 import IssueTab from './IssueTab';
 import { Loading, LoadingPage } from '@/ui/loading';
+import { v4 as uuidv4 } from 'uuid';
 import {
   firstMsgConfig,
   firstTabConfig,
@@ -258,9 +259,9 @@ const SearchPage: React.FC = () => {
           {tabPageLoading || askFromUrlLoading ? (
             <LoadingPage />
           ) : (
-            tabs.map((tab, index) => (
+            tabs.map((tab) => (
               <IssueTab
-                key={index}
+                key={uuidv4()}
                 title={tab.title}
                 onClick={() => handleTabClick(tab.id)}
                 isActive={tab.id === activeIndex}
@@ -282,7 +283,7 @@ const SearchPage: React.FC = () => {
           ) : (
             messages.map((message) => (
               <ChatMessage
-                key={message.id}
+                key={uuidv4()}
                 message={message.message}
                 isAI={message.isAI}
               />
