@@ -18,7 +18,7 @@ const RoundButton: FC<RoundButtonProps> = ({
 }) => {
   return (
     <button
-      className={`hover:bg-light min-w-[102px] items-center justify-center border px-2 py-1 text-sm transition duration-200 ease-in-out ${className}`}
+      className={`hover:bg-light min-w-[102px] cursor-pointer items-center justify-center border px-2 py-1 text-sm transition duration-200 ease-in-out ${className}`}
       onClick={onClick}
       disabled={disabled}
     >

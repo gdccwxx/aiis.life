@@ -16,6 +16,14 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
       remarkPlugins={[gfm]}
       children={markdown}
       components={{
+        a: ({ ...data }): JSX.Element => (
+          <a
+            className="mx-2 cursor-pointer rounded-full bg-gray-100 px-2 py-1 font-mono text-sm font-bold dark:bg-gray-700"
+            onClick={() => window.open(String(data.href))}
+          >
+            {data.children} ({String(data.href)})
+          </a>
+        ),
         code({ node, inline, className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || '');
           return !inline && match ? (
@@ -60,7 +68,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
             </div>
           ) : (
             <code
-              className={`mx-[1px] rounded-sm bg-gray-100 px-1 py-[2px] font-mono font-bold dark:bg-gray-700 ${className}`}
+              className={`mx-[1px] rounded-md bg-gray-100 px-1 py-[2px] font-mono text-sm font-bold dark:bg-gray-700 ${className}`}
               {...props}
             >
               {children}

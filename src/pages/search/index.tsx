@@ -7,8 +7,7 @@ import { apiSessionCreatePost, apiSessionGet } from '@/apis/session';
 import { apiChatPost } from '@/apis/message';
 import toast from '@/ui/toast/toast';
 import { getCookie } from '@/utils/cookie';
-import IssueTab from './IssueTab';
-import { Loading, LoadingPage } from '@/ui/loading';
+import { Loading } from '@/ui/loading';
 import { v4 as uuidv4 } from 'uuid';
 import {
   firstMsgConfig,
@@ -20,6 +19,8 @@ import {
   getQueryString,
   setSearchParam
 } from '@/utils/helpers';
+
+import { ChakraDrawerDemo, SideBar } from './sideBar';
 
 const SearchPage: React.FC = () => {
   const [messages, setMessages] = useState([firstMsgConfig]);
@@ -254,26 +255,21 @@ const SearchPage: React.FC = () => {
 
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-gray-800">
-      <div className="invisible w-0 md:visible md:w-1/4">
-        <div className="flex h-screen flex-col overflow-y-scroll">
-          {tabPageLoading || askFromUrlLoading ? (
-            <LoadingPage />
-          ) : (
-            tabs.map((tab) => (
-              <IssueTab
-                key={uuidv4()}
-                title={tab.title}
-                onClick={() => handleTabClick(tab.id)}
-                isActive={tab.id === activeIndex}
-              />
-            ))
-          )}
-        </div>
-      </div>
+      <SideBar
+        tabs={tabs}
+        activeIndex={activeIndex}
+        onTabClick={handleTabClick}
+        name={''}
+        progress={0}
+        progressMax={0}
+        tabPageLoading={tabPageLoading}
+        askFromUrlLoading={askFromUrlLoading}
+      />
       <div
         className="h-screen w-full divide-y divide-gray-200 rounded-lg shadow-xl dark:divide-gray-700 md:w-3/4"
         onAnimationEnd={handleAnimationEnd}
       >
+        {/* msg 列表 */}
         <div
           className="absolute top-0 bottom-[145px] w-full overflow-y-scroll px-4 pt-3 md:w-3/4"
           ref={chatRef}
@@ -290,6 +286,7 @@ const SearchPage: React.FC = () => {
             ))
           )}
         </div>
+        {/* 底部输入框 */}
         <div className="absolute bottom-0 w-full bg-gray-50 p-4 dark:bg-gray-900 md:w-3/4">
           <form onSubmit={handleSubmit}>
             <InputBox
@@ -305,6 +302,19 @@ const SearchPage: React.FC = () => {
               </button>
             </InputBox>
           </form>
+        </div>
+        {/* 移动端显示的抽屉按钮 */}
+        <div className="visible absolute z-20 md:invisible md:hidden">
+          <ChakraDrawerDemo
+            tabs={tabs}
+            activeIndex={activeIndex}
+            onTabClick={handleTabClick}
+            name={''}
+            progress={0}
+            progressMax={0}
+            tabPageLoading={tabPageLoading}
+            askFromUrlLoading={askFromUrlLoading}
+          />
         </div>
       </div>
       <LoginModal />

@@ -1,0 +1,149 @@
+import { LoadingPage } from '@/ui/loading';
+import React, { useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import IssueTab from './IssueTab';
+import UserCard from './userCard';
+import {
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerOverlay,
+  useDisclosure
+} from '@chakra-ui/react';
+import { AiOutlineClose } from 'react-icons/ai';
+import { FiMenu } from 'react-icons/fi';
+
+interface SideBarProps {
+  tabs: Array<{ id: number; title: string }>;
+  activeIndex: number;
+  onTabClick: (id: number) => void;
+  name: string;
+  progress: number;
+  progressMax: number;
+  tabPageLoading?: boolean;
+  askFromUrlLoading?: boolean;
+}
+
+export const SideBar: React.FC<SideBarProps> = ({
+  tabs,
+  activeIndex,
+  onTabClick,
+  name,
+  progress,
+  progressMax,
+  tabPageLoading,
+  askFromUrlLoading
+}) => {
+  return (
+    <div className="invisible w-0 md:visible md:w-1/4">
+      <div className="absolute top-0 flex h-[150px] w-0 flex-col md:w-1/4 ">
+        <UserCard name={name} progress={progress} progressMax={progressMax} />
+      </div>
+      <div className="absolute top-[150px] bottom-0 flex w-0 flex-col overflow-y-scroll md:w-1/4">
+        {tabPageLoading || askFromUrlLoading ? (
+          <LoadingPage />
+        ) : (
+          tabs.map((tab) => (
+            <IssueTab
+              key={uuidv4()}
+              title={tab.title}
+              onClick={() => onTabClick(tab.id)}
+              isActive={tab.id === activeIndex}
+            />
+          ))
+        )}
+      </div>
+    </div>
+  );
+};
+
+export const ChakraDrawerDemo: React.FC<SideBarProps> = ({
+  tabs,
+  activeIndex,
+  onTabClick,
+  name,
+  progress,
+  progressMax,
+  tabPageLoading,
+  askFromUrlLoading
+}) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // 当去浏览器宽度变化时抽屉收起
+  useEffect(() => {
+    const handleResize = () => {
+      onClose();
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [onClose]);
+
+  return (
+    <>
+      {isOpen ? (
+        ''
+      ) : (
+        <button
+          className="absolute top-0 left-0 h-12 w-12 transform items-center justify-center rounded-br-full bg-blue-500"
+          onClick={onOpen}
+        >
+          <FiMenu
+            size={16}
+            style={{ position: 'absolute', left: 10, top: 12 }}
+            color="#fff"
+          />
+        </button>
+      )}
+      <Drawer
+        colorScheme={'blackAlpha'}
+        placement={'left'}
+        onClose={onClose}
+        isOpen={isOpen}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          {/* <DrawerCloseButton />
+          <DrawerHeader>Drawer Title</DrawerHeader> */}
+          <DrawerBody>
+            <div className="w-2/3">
+              <div className="absolute top-0 flex h-[150px] w-2/3">
+                <UserCard
+                  name={name}
+                  progress={progress}
+                  progressMax={progressMax}
+                />
+                <div className="bg-gray-100 p-6 shadow-none dark:bg-slate-600">
+                  <button
+                    onClick={onClose}
+                    type="button"
+                    className="absolute top-3 right-3 flex h-6 w-6 items-center justify-center rounded-full bg-gray-300 outline-none transition-colors duration-300 hover:bg-gray-400 focus:bg-gray-400 focus:outline-none"
+                  >
+                    <AiOutlineClose />
+                  </button>
+                </div>
+              </div>
+              <div className="absolute top-[150px] bottom-0 flex w-2/3 flex-col overflow-y-scroll">
+                {tabPageLoading || askFromUrlLoading ? (
+                  <LoadingPage />
+                ) : (
+                  tabs.map((tab) => (
+                    <IssueTab
+                      key={uuidv4()}
+                      title={tab.title}
+                      onClick={() => onTabClick(tab.id)}
+                      isActive={tab.id === activeIndex}
+                    />
+                  ))
+                )}
+              </div>
+            </div>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+    </>
+  );
+};
