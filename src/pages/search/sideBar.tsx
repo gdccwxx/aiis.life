@@ -72,7 +72,9 @@ export const ChakraDrawerDemo: React.FC<SideBarProps> = ({
   // 当去浏览器宽度变化时抽屉收起
   useEffect(() => {
     const handleResize = () => {
-      onClose();
+      if (isOpen) {
+        onClose();
+      }
     };
 
     window.addEventListener('resize', handleResize);
@@ -103,46 +105,54 @@ export const ChakraDrawerDemo: React.FC<SideBarProps> = ({
         placement={'left'}
         onClose={onClose}
         isOpen={isOpen}
+        onOverlayClick={onClose}
       >
-        <DrawerOverlay />
-        <DrawerContent>
-          {/* <DrawerCloseButton />
-          <DrawerHeader>Drawer Title</DrawerHeader> */}
-          <DrawerBody>
-            <div className="w-2/3">
-              <div className="absolute top-0 flex h-[150px] w-2/3">
-                <UserCard
-                  name={name}
-                  progress={progress}
-                  progressMax={progressMax}
-                />
-                <div className="bg-gray-100 p-6 shadow-none dark:bg-slate-600">
-                  <button
-                    onClick={onClose}
-                    type="button"
-                    className="absolute top-3 right-3 flex h-6 w-6 items-center justify-center rounded-full bg-gray-300 outline-none transition-colors duration-300 hover:bg-gray-400 focus:bg-gray-400 focus:outline-none"
-                  >
-                    <AiOutlineClose />
-                  </button>
-                </div>
-              </div>
-              <div className="absolute top-[150px] bottom-0 flex w-2/3 flex-col overflow-y-scroll">
-                {tabPageLoading || askFromUrlLoading ? (
-                  <LoadingPage />
-                ) : (
-                  tabs.map((tab) => (
-                    <IssueTab
-                      key={uuidv4()}
-                      title={tab.title}
-                      onClick={() => onTabClick(tab.id)}
-                      isActive={tab.id === activeIndex}
+        <DrawerOverlay className="h-full w-full transform bg-slate-800 bg-opacity-60">
+          <DrawerContent>
+            <DrawerBody>
+              <div className="flex">
+                <div className="w-9/12">
+                  <div className="absolute top-0 flex h-[150px] w-9/12">
+                    <UserCard
+                      name={name}
+                      progress={progress}
+                      progressMax={progressMax}
                     />
-                  ))
-                )}
+                    <div className="bg-gray-100 p-6 shadow-none dark:bg-slate-600">
+                      <button
+                        onClick={onClose}
+                        type="button"
+                        className="absolute top-3 right-3 flex h-6 w-6 items-center justify-center rounded-full bg-gray-300 outline-none transition-colors duration-300 hover:bg-gray-400 focus:bg-gray-400 focus:outline-none"
+                      >
+                        <AiOutlineClose />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="absolute top-[150px] bottom-0 flex w-9/12 flex-col overflow-y-scroll">
+                    {tabPageLoading || askFromUrlLoading ? (
+                      <LoadingPage />
+                    ) : (
+                      tabs.map((tab) => (
+                        <IssueTab
+                          key={uuidv4()}
+                          title={tab.title}
+                          onClick={() => {
+                            onClose();
+                            setTimeout(() => {
+                              onTabClick(tab.id);
+                            }, 50);
+                          }}
+                          isActive={tab.id === activeIndex}
+                        />
+                      ))
+                    )}
+                  </div>
+                </div>
+                <div className="h-screen w-3/12" onClick={onClose} />
               </div>
-            </div>
-          </DrawerBody>
-        </DrawerContent>
+            </DrawerBody>
+          </DrawerContent>
+        </DrawerOverlay>
       </Drawer>
     </>
   );

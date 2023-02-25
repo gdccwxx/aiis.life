@@ -21,7 +21,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
             className="mx-2 cursor-pointer rounded-full bg-gray-100 px-2 py-1 font-mono text-sm font-bold dark:bg-gray-700"
             onClick={() => window.open(String(data.href))}
           >
-            {data.children} ({String(data.href)})
+            {data.children}({String(data.href)})
           </a>
         ),
         code({ node, inline, className, children, ...props }) {

@@ -1,8 +1,7 @@
 import Bg from '@/assets/website/cool_background.svg';
 import TypingText from '@/ui/typingText';
 import { useRef, useState } from 'react';
-import UserCard from '../search/userCard';
-import SearchInput from './searchInput';
+
 // 打字动效
 // https://readme-typing-svg.herokuapp.com/demo/
 
