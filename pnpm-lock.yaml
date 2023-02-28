@@ -7,6 +7,7 @@ specifiers:
   '@commitlint/config-conventional': ^17.0.3
   '@emotion/react': ^11.10.4
   '@emotion/styled': ^11.10.4
+  '@headlessui/react': ^1.7.12
   '@mysten/wallet-kit': ^0.3.3
   '@suiet/wallet-kit': ^0.1.26
   '@tailwindcss/aspect-ratio': ^0.4.0
@@ -21,6 +22,7 @@ specifiers:
   '@vitejs/plugin-react': ^2.0.0
   autoprefixer: ^10.4.7
   clipboard: ^2.0.11
+  clsx: ^1.2.1
   commitizen: ^4.2.5
   conventional-changelog-cli: ^2.2.2
   cz-customizable: ^6.9.1
@@ -73,9 +75,11 @@ dependencies:
   '@chakra-ui/styled-system': 2.6.1
   '@emotion/react': 11.10.6_pmekkgnqduwlme35zpnqhenc34
   '@emotion/styled': 11.10.6_oouaibmszuch5k64ms7uxp2aia
+  '@headlessui/react': 1.7.12_biqbaboplfbrettd7655fr4n2y
   '@mysten/wallet-kit': 0.3.3_biqbaboplfbrettd7655fr4n2y
   '@suiet/wallet-kit': 0.1.26_zula6vjvt3wdocc4mwcxqa6nzi
   clipboard: 2.0.11
+  clsx: 1.2.1
   ethers: 5.7.0
   framer-motion: 7.10.3_biqbaboplfbrettd7655fr4n2y
   lottie-react: 2.3.1_biqbaboplfbrettd7655fr4n2y
@@ -6497,6 +6501,14 @@ packages:
       }
     engines: { node: '>=0.8' }
     dev: true
+
+  /clsx/1.2.1:
+    resolution:
+      {
+        integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
+      }
+    engines: { node: '>=6' }
+    dev: false
 
   /color-convert/1.9.3:
     resolution:

@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { CopyButton } from '@/components/copyBnt';
+import { CopyButton } from '@/components/utilsComponents/copyBnt';
 interface MarkdownRendererProps {
   markdown: string;
 }

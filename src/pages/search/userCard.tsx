@@ -2,6 +2,12 @@ import { FC } from 'react';
 // import { ConnectButton, useWallet, WalletProvider } from '@suiet/wallet-kit';
 import { useWallet } from '@suiet/wallet-kit';
 import { ConnectButton } from '@mysten/wallet-kit';
+import ThemeSwitch from '@/components/utilsComponents/themeSwitch';
+import { getCookie } from '@/utils/cookie';
+import {
+  ThemeSelect,
+  ThemeToggle
+} from '@/components/utilsComponents/themeSwitch/ThemeToggle';
 
 type UserCardProps = {
   avatar?: string;
@@ -26,7 +32,7 @@ const UserCard: FC<UserCardProps> = ({
 
   return (
     <div className="h-[150px] flex-1">
-      <div className="flex flex-wrap items-center bg-gray-100 p-6 shadow-lg dark:bg-slate-600">
+      <div className="flex h-[150px] flex-wrap items-center bg-gray-100 p-6 dark:bg-slate-600">
         <div className="mr-4 flex-shrink-0">
           <img
             src={avatar ?? getRandomAvatarUrl(name)}
@@ -37,26 +43,29 @@ const UserCard: FC<UserCardProps> = ({
         <div className="mt-2">
           <div className="text-xl font-medium text-gray-800 dark:text-gray-200">
             {name}
+            <div className="flex bg-gray-100 text-gray-800 dark:bg-slate-600 dark:text-gray-200">
+              <ConnectButton
+                className="mt-1 mr-2 p-1 shadow-none dark:text-gray-200"
+                connectText={
+                  <div className="text-gray-800 dark:text-gray-200">
+                    绑定钱包
+                  </div>
+                }
+              />
+              <ThemeToggle />
+              {/* <ThemeSwitch /> */}
+              {/* <ThemeSelect /> */}
+            </div>
           </div>
           <div className="mt-1">
             <div className="h-2 w-40 rounded-full bg-gray-200">
               <div
                 className="h-2 rounded-full bg-green-500"
                 style={{ width: progressPercent }}
-              ></div>
+              />
             </div>
           </div>
         </div>
-      </div>
-      <div className="bg-gray-100 p-6 text-gray-800 shadow-lg dark:bg-slate-600 dark:text-gray-200">
-        {wallet.connected ? (
-          <div className="">{wallet?.address}</div>
-        ) : (
-          //   <WalletProvider>
-          //     <ConnectButton>Connect Wallet</ConnectButton>
-          //   </WalletProvider>
-          <ConnectButton className="m-0 p-2" />
-        )}
       </div>
     </div>
   );

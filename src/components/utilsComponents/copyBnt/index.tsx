@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import toast from '../../ui/toast/toast';
+import toast from '../../../ui/toast/toast';
 import { HiClipboardCopy } from 'react-icons/hi';
 
 type CopyButtonProps = {
