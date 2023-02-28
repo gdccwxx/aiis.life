@@ -199,8 +199,9 @@ export function useTheme() {
 }
 
 export function ThemeToggle({ panelClassName = 'm-0' }: any) {
-  const setting = useTheme().setting;
-  const setSetting = useTheme().e;
+  const theme = useTheme();
+  const setting = theme.setting;
+  const setSetting = theme.e;
 
   return (
     <Listbox
@@ -210,10 +211,10 @@ export function ThemeToggle({ panelClassName = 'm-0' }: any) {
       <Listbox.Label className="sr-only">Theme</Listbox.Label>
       <Listbox.Button type="button">
         <span className="dark:hidden">
-          <SunIcon className="h-6 w-6" selected={setting !== 'system'} />
+          <SunIcon className="h-6 w-6" selected={setting === 'light'} />
         </span>
         <span className="hidden dark:inline">
-          <MoonIcon className="h-6 w-6" selected={setting !== 'system'} />
+          <MoonIcon className="h-6 w-6" selected={setting === 'dark'} />
         </span>
       </Listbox.Button>
       <Listbox.Options
@@ -244,8 +245,9 @@ export function ThemeToggle({ panelClassName = 'm-0' }: any) {
 }
 
 export function ThemeSelect() {
-  const setting = useTheme().setting;
-  const setSetting = useTheme().e;
+  const theme = useTheme();
+  const setting = theme.setting;
+  const setSetting = theme.e;
 
   const label = settings.find((x) => x.value === setting);
 
