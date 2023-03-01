@@ -86,7 +86,9 @@ export const LoginModal: FC<Props> = ({ defaultOpen = false }) => {
       const res = await apiUserLoginPost(email, code);
       if (res.data && res.code == 0) {
         localStorage.setItem('token', res.data);
+        localStorage.setItem('email', email);
         setCookie('token', res.data);
+        setCookie('email', email);
         toast.success('登录成功');
         setIsModalOpen(false);
         const searchParams = new URLSearchParams(window.location.search);

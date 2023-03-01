@@ -2,7 +2,7 @@ import Bg from '@/assets/website/cool_background.svg';
 import TypingText from '@/ui/typingText';
 import { useRef, useState } from 'react';
 
-// 打字动效
+// 打字动效 现已弃用，更换为组件 TypingText
 // https://readme-typing-svg.herokuapp.com/demo/
 
 export default function HomeBanner() {

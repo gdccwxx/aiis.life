@@ -45,6 +45,10 @@ const SearchPage: React.FC = () => {
 
   const [tabs, setTabs] = useState([firstTabConfig]);
 
+  // 用户名获取
+  const email = localStorage.getItem('email') ?? 'Aiis';
+
+  // 默认一次加载数据
   let firstLoad = true;
   useEffect(() => {
     const token = getCookie('token');
@@ -259,7 +263,7 @@ const SearchPage: React.FC = () => {
         tabs={tabs}
         activeIndex={activeIndex}
         onTabClick={handleTabClick}
-        name={''}
+        name={email}
         progress={0}
         progressMax={0}
         tabPageLoading={tabPageLoading}
@@ -309,7 +313,7 @@ const SearchPage: React.FC = () => {
             tabs={tabs}
             activeIndex={activeIndex}
             onTabClick={handleTabClick}
-            name={''}
+            name={email}
             progress={0}
             progressMax={0}
             tabPageLoading={tabPageLoading}

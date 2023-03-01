@@ -1,13 +1,6 @@
 import { FC } from 'react';
-// import { ConnectButton, useWallet, WalletProvider } from '@suiet/wallet-kit';
-import { useWallet } from '@suiet/wallet-kit';
-import { ConnectButton } from '@mysten/wallet-kit';
-import ThemeSwitch from '@/components/utilsComponents/themeSwitch';
-import { getCookie } from '@/utils/cookie';
-import {
-  ThemeSelect,
-  ThemeToggle
-} from '@/components/utilsComponents/themeSwitch/ThemeToggle';
+// import { ConnectButton } from '@mysten/wallet-kit';
+import { ThemeToggle } from '@/components/utilsComponents/themeSwitch/ThemeToggle';
 
 type UserCardProps = {
   avatar?: string;
@@ -28,7 +21,6 @@ const UserCard: FC<UserCardProps> = ({
   progressMax = 100
 }) => {
   const progressPercent = `${(progress / progressMax) * 100}%`;
-  const wallet = useWallet();
 
   return (
     <div className="h-[150px] flex-1">
@@ -44,14 +36,14 @@ const UserCard: FC<UserCardProps> = ({
           <div className="text-xl font-medium text-gray-800 dark:text-gray-200">
             {name}
             <div className="flex bg-gray-100 text-gray-800 dark:bg-slate-600 dark:text-gray-200">
-              <ConnectButton
+              {/* <ConnectButton
                 className="mt-1 mr-2 p-1 shadow-none dark:text-gray-200"
                 connectText={
                   <div className="text-gray-800 dark:text-gray-200">
                     绑定钱包
                   </div>
                 }
-              />
+              /> */}
               <ThemeToggle />
               {/* <ThemeSwitch /> */}
               {/* <ThemeSelect /> */}
