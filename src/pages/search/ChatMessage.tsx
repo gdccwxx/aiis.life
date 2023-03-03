@@ -4,6 +4,7 @@ import gfm from 'remark-gfm';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { CopyButton } from '@/components/utilsComponents/copyBnt';
+import { extractDomains } from '@/utils/getDomain';
 interface MarkdownRendererProps {
   markdown: string;
 }
@@ -14,16 +15,35 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
   return (
     <ReactMarkdown
       remarkPlugins={[gfm]}
-      children={markdown}
+      children={markdown.replace('/n/n', '/n')}
       components={{
         a: ({ ...data }): JSX.Element => (
           <a
             className="mx-2 cursor-pointer rounded-full bg-gray-100 px-2 py-1 font-mono text-sm font-bold dark:bg-gray-700"
             onClick={() => window.open(String(data.href))}
           >
-            {data.children}({String(data.href)})
+            {data.children}
+            {extractDomains(String(data.href))[0].replace('www.', '')}
           </a>
         ),
+        ul: ({ ...data }): JSX.Element => (
+          <div className="py-1 font-mono text-sm font-bold">
+            {data.children}
+          </div>
+        ),
+        ol: ({ children }) => {
+          children = children.filter((child) => child != '\n');
+          return (
+            <ol>
+              {children.map((child, index) => (
+                <li key={index} className="flex">
+                  <p className="text-bold mx-1 font-mono">{`${index + 1}.`}</p>{' '}
+                  {child}
+                </li>
+              ))}
+            </ol>
+          );
+        },
         code({ node, inline, className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || '');
           return !inline && match ? (
