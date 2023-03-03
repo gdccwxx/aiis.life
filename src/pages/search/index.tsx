@@ -176,7 +176,7 @@ const SearchPage: React.FC = () => {
       if (res.code === 0) {
         if (res.data.length > 0) {
           const messageList = res.data[0].prompt.map((msg, index) => {
-            const isAI = msg.toString().startsWith('\nAI');
+            const isAI = msg.toString().startsWith('AI');
             const msgStartIndex = msg.indexOf(':') + 1;
             return {
               id: index,

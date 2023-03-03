@@ -6,6 +6,7 @@ import Layout from '@/components/layout';
 
 import Loadable from '@/components/Loadable';
 import SearchPage from '@/pages/search';
+import Read from '@/pages/read';
 
 const Admin = Loadable(lazy(() => import('@/pages/admin')));
 const Home = Loadable(lazy(() => import('@/pages/home')));
@@ -25,6 +26,10 @@ const MainRoutes = {
     {
       path: '/search',
       element: <SearchPage />
+    },
+    {
+      path: '/read',
+      element: <Read />
     },
     {
       path: '/home',

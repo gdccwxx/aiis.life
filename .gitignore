@@ -27,3 +27,5 @@ build/*.js
 build/index.html
 yarn.lock
 package-lock.json
+
+.buildt
