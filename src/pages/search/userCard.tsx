@@ -21,6 +21,12 @@ const UserCard: FC<UserCardProps> = ({
   progressMax = 100
 }) => {
   const progressPercent = `${(progress / progressMax) * 100}%`;
+  let showName = '';
+  if (name.indexOf('@') > 0) {
+    showName = name.slice(name.indexOf('@'));
+  } else {
+    showName = name;
+  }
 
   return (
     <div className="h-[150px] flex-1">
@@ -33,8 +39,8 @@ const UserCard: FC<UserCardProps> = ({
           />
         </div>
         <div className="mt-2">
-          <div className="text-xl font-medium text-gray-800 dark:text-gray-200">
-            {name}
+          <div className="text-sm font-medium text-gray-800 dark:text-gray-200">
+            {showName}
             <div className="flex bg-gray-100 text-gray-800 dark:bg-slate-600 dark:text-gray-200">
               {/* <ConnectButton
                 className="mt-1 mr-2 p-1 shadow-none dark:text-gray-200"
