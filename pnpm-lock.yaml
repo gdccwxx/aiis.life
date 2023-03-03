@@ -8,6 +8,7 @@ specifiers:
   '@emotion/react': ^11.10.4
   '@emotion/styled': ^11.10.4
   '@headlessui/react': ^1.7.12
+  '@lottiefiles/react-lottie-player': ^3.5.2
   '@mysten/wallet-kit': ^0.3.3
   '@suiet/wallet-kit': ^0.1.26
   '@tailwindcss/aspect-ratio': ^0.4.0
@@ -76,6 +77,7 @@ dependencies:
   '@emotion/react': 11.10.6_pmekkgnqduwlme35zpnqhenc34
   '@emotion/styled': 11.10.6_oouaibmszuch5k64ms7uxp2aia
   '@headlessui/react': 1.7.12_biqbaboplfbrettd7655fr4n2y
+  '@lottiefiles/react-lottie-player': 3.5.2_react@18.2.0
   '@mysten/wallet-kit': 0.3.3_biqbaboplfbrettd7655fr4n2y
   '@suiet/wallet-kit': 0.1.26_zula6vjvt3wdocc4mwcxqa6nzi
   clipboard: 2.0.11
@@ -4139,6 +4141,18 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
+
+  /@lottiefiles/react-lottie-player/3.5.2_react@18.2.0:
+    resolution:
+      {
+        integrity: sha512-vrvRgqXimIpM5GUzBP6aksZjCdLUGxTL3FZ+2NJzLmKkPL3xDEX7oCftqPSerFz1AXVwIur3FaZbWL+XyagXWQ==
+      }
+    peerDependencies:
+      react: 16 - 18
+    dependencies:
+      lottie-web: 5.10.2
+      react: 18.2.0
+    dev: false
 
   /@motionone/animation/10.15.1:
     resolution:
