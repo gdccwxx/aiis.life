@@ -175,7 +175,7 @@ const SearchPage: React.FC = () => {
       const res = await apiSessionGet(sessionId);
       if (res.code === 0) {
         if (res.data.length > 0) {
-          const messageList = res.data[0].chatHistory.map((msg, index) => {
+          const messageList = res.data[0].chat_history.map((msg, index) => {
             const isAI = msg.role == 'assistant';
             return {
               id: index,

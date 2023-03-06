@@ -2,7 +2,7 @@ export interface SessionCreateData {
   id: number;
   user: string;
   title: string;
-  chatHistory: HistoryMsg[];
+  chat_history: HistoryMsg[];
   created_at: Date;
   updated_at: Date;
 }
