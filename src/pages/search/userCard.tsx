@@ -38,12 +38,12 @@ const UserCard: FC<UserCardProps> = ({
             alt="Avatar"
             className="h-12 w-12 rounded-full"
           />
-          <ConnectButton
+          {/* <ConnectButton
             className="mt-1 mr-2 p-1 shadow-none dark:text-gray-200"
             connectText={
               <div className="text-gray-800 dark:text-gray-200">绑定钱包</div>
             }
-          />
+          /> */}
         </div>
         <div className="mt-2">
           <div className="flex content-center text-sm font-medium text-gray-800 dark:text-gray-200">
