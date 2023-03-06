@@ -2,13 +2,25 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+.body {
+  overflow-x: 'none';
+}
+
 ::-webkit-scrollbar {
   width: 9px;
+  background-color: #e3e3e3;
+}
+
+/* 水平滚动条样式 */
+::-webkit-scrollbar-horizontal {
+  height: 9px;
+  scrollbar-width: 9px;
+  min-height: 9px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 4px;
+  background-color: #ccc; /* 滑块颜色 */
+  border-radius: 4px; /* 圆角半径 */
 }
 
 .dark ::-webkit-scrollbar {
@@ -17,4 +29,16 @@
 
 .dark ::-webkit-scrollbar-thumb {
   background-color: #666;
+}
+
+/* Light mode */
+.react-syntax-highlighter-code-block.light {
+  background-color: #fff;
+  color: #333;
+}
+
+/* Dark mode */
+.react-syntax-highlighter-code-block.dark {
+  background-color: #111;
+  color: #f8f8f2;
 }

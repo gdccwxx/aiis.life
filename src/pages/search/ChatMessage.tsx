@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { CopyButton } from '@/components/utilsComponents/copyBnt';
 import { extractDomains } from '@/utils/getDomain';
 interface MarkdownRendererProps {
@@ -53,13 +54,13 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
         code({ node, inline, className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || '');
           return !inline && match ? (
-            <div className="my-2 rounded-lg bg-[#2b2b2b] text-sm">
+            <div className="my-2 w-[320px] rounded-lg bg-[#2b2b2b] text-sm">
               <div className="flex rounded-t-lg bg-slate-600 py-2 px-4">
                 <div className="grow text-gray-200">{match[1]}</div>
                 <CopyButton text={String(children)} />
               </div>
               <div
-                className="w-full max-w-md p-2 md:w-[50vw]"
+                className="max-w-[340px] p-2 md:w-[50vw]"
                 style={{ maxWidth: '90vw' }}
                 ref={copyTextRef}
                 data-clipboard-text={children}
@@ -67,8 +68,21 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
                 <SyntaxHighlighter
                   children={String(children).replace(/\n$/, '')}
                   language={match[1]}
-                  style={darcula}
-                  customStyle={{ whiteSpace: 'pre-wrap' }}
+                  style={monokai}
+                  customStyle={{
+                    whiteSpace: 'pre-wrap',
+                    scrollbarHeight: '9px',
+                    // scrollX: 'auto'
+                    // scrollbars: {
+                    //   height: '8px',
+                    //   width: '9px',
+                    //   backgroundColor: '#2a2a2a'
+                    // },
+                    '-webkit-scrollbar-horizontal': {
+                      height: '9px',
+                      scrollbarWidth: '9px'
+                    }
+                  }}
                 />
               </div>
             </div>
@@ -88,7 +102,9 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
                   children={String(children).replace(/\n$/, '')}
                   language={'text'}
                   style={darcula}
-                  customStyle={{ whiteSpace: 'pre-wrap' }}
+                  customStyle={{
+                    whiteSpace: 'pre-wrap'
+                  }}
                 />
               </div>
             </div>
