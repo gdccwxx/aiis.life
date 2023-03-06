@@ -8,14 +8,8 @@
 
 ::-webkit-scrollbar {
   width: 9px;
+  height: 10px;
   background-color: #e3e3e3;
-}
-
-/* 水平滚动条样式 */
-::-webkit-scrollbar-horizontal {
-  height: 9px;
-  scrollbar-width: 9px;
-  min-height: 9px;
 }
 
 ::-webkit-scrollbar-thumb {

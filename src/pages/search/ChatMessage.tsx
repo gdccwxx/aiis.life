@@ -60,8 +60,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
                 <CopyButton text={String(children)} />
               </div>
               <div
-                className="w-[340px] bg-transparent p-2 sm:w-[90vw]"
-                style={{ maxWidth: '90vw' }}
+                className="w-[340px] bg-transparent p-2 sm:w-[90vw] md:w-[65vw]"
                 ref={copyTextRef}
                 data-clipboard-text={children}
               >
@@ -71,13 +70,12 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
                   style={monokai}
                   customStyle={{
                     whiteSpace: 'pre-wrap',
-                    scrollbarHeight: '9px',
-                    // scrollX: 'auto'
-                    // scrollbars: {
-                    //   height: '8px',
-                    //   width: '9px',
-                    //   backgroundColor: '#2a2a2a'
-                    // },
+                    scrollX: 'auto',
+                    scrollbars: {
+                      height: '8px',
+                      width: '9px',
+                      backgroundColor: '#2a2a2a'
+                    },
                     '-webkit-scrollbar-horizontal': {
                       height: '9px',
                       scrollbarWidth: '9px'
