@@ -1,0 +1,27 @@
+2023-03-03T21:33:13.881818Z  INFO sui::client_commands: 0x347feceb634bca3522112b0ea1eeb6bd6cc2163a
+2023-03-03T21:37:09.236575Z  WARN sui::client_commands: Client/Server api version mismatch, client api version : 0.27.0, server api version : 0.27.1
+2023-03-03T21:37:11.314339Z  INFO sui::client_commands: [1mSuccessfully created an ExampleNFT:[0m
+2023-03-03T21:37:11.314395Z  INFO sui::client_commands: 
+2023-03-03T21:37:11.314404Z  INFO sui::client_commands: [1m----- Move Object (0x35f58421bba5cc99efc74c2df6732e2a378d564e[5667]) -----[0m
+2023-03-03T21:37:11.314410Z  INFO sui::client_commands: [1;90mOwner[0m: Account Address ( 0x347feceb634bca3522112b0ea1eeb6bd6cc2163a )
+2023-03-03T21:37:11.314416Z  INFO sui::client_commands: [1;90mVersion[0m: 5667
+2023-03-03T21:37:11.314422Z  INFO sui::client_commands: [1;90mStorage Rebate[0m: 25
+2023-03-03T21:37:11.314428Z  INFO sui::client_commands: [1;90mPrevious Transaction[0m: TransactionDigest(3D4R444qWsSgNE3JPGGA6m4vY9wQZwx4sWt1SnUrJTBg)
+2023-03-03T21:37:11.314434Z  INFO sui::client_commands: [1m----- Data -----[0m
+2023-03-03T21:37:11.314440Z  INFO sui::client_commands: [1;90mtype[0m: 0x2::devnet_nft::DevNetNFT
+2023-03-03T21:37:11.314446Z  INFO sui::client_commands: [1;90mdescription[0m: An NFT created by the Sui Command Line Tool
+2023-03-03T21:37:11.314452Z  INFO sui::client_commands: [1;90mid[0m: 0x35f58421bba5cc99efc74c2df6732e2a378d564e
+2023-03-03T21:37:11.314457Z  INFO sui::client_commands: [1;90mname[0m: Example NFT
+2023-03-03T21:37:11.314463Z  INFO sui::client_commands: [1;90murl[0m: ipfs://bafkreibngqhl3gaa7daob4i2vccziay2jjlp435cf66vhono7nrvww53ty
+2023-03-03T21:46:33.829188Z  WARN sui::client_commands: Client/Server api version mismatch, client api version : 0.27.0, server api version : 0.27.1
+2023-03-03T21:53:58.268006Z  WARN sui::client_commands: Client/Server api version mismatch, client api version : 0.27.0, server api version : 0.27.1
+2023-03-03T21:55:24.538456Z  WARN sui::client_commands: Client/Server api version mismatch, client api version : 0.27.0, server api version : 0.27.1
+2023-03-03T21:58:20.428075Z  WARN sui::client_commands: Client/Server api version mismatch, client api version : 0.27.0, server api version : 0.27.1
+2023-03-03T21:59:34.358116Z  WARN sui::client_commands: Client/Server api version mismatch, client api version : 0.27.0, server api version : 0.27.1
+2023-03-03T22:00:14.267681Z  INFO sui::client_commands: 0x347feceb634bca3522112b0ea1eeb6bd6cc2163a
+2023-03-03T22:02:05.088859Z  WARN sui::client_commands: Client/Server api version mismatch, client api version : 0.27.0, server api version : 0.27.1
+2023-03-03T22:04:20.594795Z  WARN sui::client_commands: Client/Server api version mismatch, client api version : 0.27.0, server api version : 0.27.1
+2023-03-03T22:04:42.970153Z  WARN sui::client_commands: Client/Server api version mismatch, client api version : 0.27.0, server api version : 0.27.1
+2023-03-03T22:05:21.700383Z  WARN sui::client_commands: Client/Server api version mismatch, client api version : 0.27.0, server api version : 0.27.1
+2023-03-03T22:10:19.870253Z  WARN sui::client_commands: Client/Server api version mismatch, client api version : 0.27.0, server api version : 0.27.1
+2023-03-03T22:17:36.492347Z  WARN sui::client_commands: Client/Server api version mismatch, client api version : 0.27.0, server api version : 0.27.1

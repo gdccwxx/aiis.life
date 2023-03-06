@@ -1,6 +1,7 @@
 import { FC } from 'react';
 // import { ConnectButton } from '@mysten/wallet-kit';
 import { ThemeToggle } from '@/components/utilsComponents/themeSwitch/ThemeToggle';
+import { ConnectButton } from '@mysten/wallet-kit';
 
 type UserCardProps = {
   avatar?: string;
@@ -31,26 +32,25 @@ const UserCard: FC<UserCardProps> = ({
   return (
     <div className="h-[150px] flex-1">
       <div className="flex h-[150px] flex-wrap items-center bg-gray-100 p-6 dark:bg-slate-600">
-        <div className="mr-4 flex-shrink-0">
+        <div className="mr-4 flex flex-shrink-0">
           <img
             src={avatar ?? getRandomAvatarUrl(name)}
             alt="Avatar"
             className="h-12 w-12 rounded-full"
+          />
+          <ConnectButton
+            className="mt-1 mr-2 p-1 shadow-none dark:text-gray-200"
+            connectText={
+              <div className="text-gray-800 dark:text-gray-200">绑定钱包</div>
+            }
           />
         </div>
         <div className="mt-2">
           <div className="flex content-center text-sm font-medium text-gray-800 dark:text-gray-200">
             <div className="my-2 mr-2">{showName}</div>
             <ThemeToggle />
+
             <div className="flex bg-gray-100 text-gray-800 dark:bg-slate-600 dark:text-gray-200">
-              {/* <ConnectButton
-                className="mt-1 mr-2 p-1 shadow-none dark:text-gray-200"
-                connectText={
-                  <div className="text-gray-800 dark:text-gray-200">
-                    绑定钱包
-                  </div>
-                }
-              /> */}
               {/* <ThemeSwitch /> */}
               {/* <ThemeSelect /> */}
             </div>

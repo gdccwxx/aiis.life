@@ -4,8 +4,11 @@
 // 或者是 { address: [string] }
 // 下面示例采用后者。
 module Likes {
+
+    use sui::transfer;
+
     resource Likes {
-        likes: array<string>,
+        likes: vector<string>,
     }
     
     // 点赞
@@ -37,7 +40,7 @@ module Documents {
     
     // 创建文档
     public fun create_document(url: string, author: address, content: vector<u8>) {
-        let mut documents = move(Self::Documents::load_resource());
+        let mut documents = (Self::Documents::load_resource());
         let document = Document {
             likeCount: 0,
             commentCount: 0,
@@ -83,7 +86,7 @@ module Comments {
     }
     
     // 评论
-    public fun comment_document(url: string, user: address, ref: vector<u8>, comment: vector<u8>) {
+    public entry fun comment_document(url: string, user: address, ref: vector<u8>, comment: vector<u8>) {
         Documents::comment_document(url, user, ref, comment);
     }
 }

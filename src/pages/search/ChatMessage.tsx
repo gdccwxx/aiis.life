@@ -20,7 +20,13 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
         a: ({ ...data }): JSX.Element => (
           <a
             className="mx-2 cursor-pointer rounded-full bg-gray-100 px-2 py-1 font-mono text-sm font-bold dark:bg-gray-700"
-            onClick={() => window.open(String(data.href))}
+            onClick={() =>
+              window.open(
+                String(data.href).includes('?')
+                  ? String(data.href) + '&ref=aiis'
+                  : String(data.href) + '?ref=aiis'
+              )
+            }
           >
             {data.children}
             {extractDomains(String(data.href))[0].replace('www.', '')}
