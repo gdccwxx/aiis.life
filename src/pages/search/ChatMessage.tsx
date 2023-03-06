@@ -54,13 +54,13 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
         code({ node, inline, className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || '');
           return !inline && match ? (
-            <div className="my-2 w-[320px] rounded-lg bg-[#2b2b2b] text-sm">
+            <div className="my-2 rounded-lg bg-[#272823] text-sm">
               <div className="flex rounded-t-lg bg-slate-600 py-2 px-4">
                 <div className="grow text-gray-200">{match[1]}</div>
                 <CopyButton text={String(children)} />
               </div>
               <div
-                className="max-w-[340px] p-2 md:w-[50vw]"
+                className="w-[340px] bg-transparent p-2 md:w-[50vw]"
                 style={{ maxWidth: '90vw' }}
                 ref={copyTextRef}
                 data-clipboard-text={children}
