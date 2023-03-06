@@ -175,12 +175,11 @@ const SearchPage: React.FC = () => {
       const res = await apiSessionGet(sessionId);
       if (res.code === 0) {
         if (res.data.length > 0) {
-          const messageList = res.data[0].prompt.map((msg, index) => {
-            const isAI = msg.toString().startsWith('AI');
-            const msgStartIndex = msg.indexOf(':') + 1;
+          const messageList = res.data[0].chatHistory.map((msg, index) => {
+            const isAI = msg.role == 'assistant';
             return {
               id: index,
-              message: msg.toString().slice(msgStartIndex),
+              message: msg.content,
               isAI: isAI
             };
           });

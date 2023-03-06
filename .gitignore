@@ -24,7 +24,9 @@ dist-ssr
 *.sw?
 
 
-
+sui_dsearch/build
+sui_dsearch/sui.*
+sui_dsearch/*.log.*
 build/*.js
 build/index.html
 yarn.lock
