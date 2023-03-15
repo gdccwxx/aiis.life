@@ -60,7 +60,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
                 <CopyButton text={String(children)} />
               </div>
               <div
-                className="w-[340px] bg-transparent p-2 sm:w-[90vw] md:w-[65vw]"
+                className="w-[80vw] bg-transparent p-2 sm:w-[90vw] md:w-[65vw]"
                 ref={copyTextRef}
                 data-clipboard-text={children}
               >

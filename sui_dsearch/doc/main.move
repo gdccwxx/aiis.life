@@ -5,7 +5,9 @@
 // 下面示例采用后者。
 module Likes {
 
+    use sui::object::{Self, UID};
     use sui::transfer;
+    use sui::tx_context::{Self, TxContext};
 
     resource Likes {
         likes: vector<string>,
@@ -34,6 +36,11 @@ module Likes {
 // 存储方式可以是 { string: Document }
 // 下面示例采用后者。
 module Documents {
+    
+    use sui::object::{Self, UID};
+    use sui::transfer;
+    use sui::tx_context::{Self, TxContext};
+
     resource Documents {
         documents: array<Document>,
     }
