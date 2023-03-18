@@ -1,5 +1,5 @@
 import IconSearch from '@/components/icons/search';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import InputBox from './InputBox';
 import ChatMessage from './ChatMessage';
 import { LoginModal } from '@/components/loginModal';
@@ -24,10 +24,15 @@ import { ChakraDrawerDemo, SideBar } from './sideBar';
 
 const SearchPage: React.FC = () => {
   const [messages, setMessages] = useState([firstMsgConfig]);
-  const [inputValue, setInputValue] = useState('');
-  const [inputLastValue, setInputLastValue] = useState('');
+  // const [inputLastValue, setInputLastValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const chatRef = useRef<HTMLDivElement>(null);
+
+  // 输入框变更事件
+  const [inputValue, setInputValue] = useState('');
+  const handleInputChange = useCallback((event) => {
+    setInputValue(event.target.value);
+  }, []);
 
   // 页面状态
   const [msgPageLoading, setMsgPageLoading] = useState(false);
@@ -89,7 +94,7 @@ const SearchPage: React.FC = () => {
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     // 设置缓存，用户发送失败重新发送
     const submitString = msg.toString();
-    setInputLastValue(submitString);
+    // setInputLastValue(submitString);
 
     // 如果是新会话
     if (activeIndex === 0) {
@@ -159,10 +164,10 @@ const SearchPage: React.FC = () => {
   };
 
   // 重新请求回答 inputLastValue
-  const getAnsRanderAgain = async (sessionId: number) => {
-    // 访问 api
-    await getAnsRander(sessionId, inputLastValue);
-  };
+  // const getAnsRanderAgain = async (sessionId: number) => {
+  //   // 访问 api
+  //   await getAnsRander(sessionId, inputLastValue);
+  // };
 
   // 获取某个 session 历史消息
   const getMsgFromSession = async (sessionId: number) => {
@@ -282,7 +287,7 @@ const SearchPage: React.FC = () => {
           ) : (
             messages.map((message) => (
               <ChatMessage
-                key={uuidv4()}
+                key={message.id}
                 message={message.message}
                 isAI={message.isAI}
               />
@@ -294,7 +299,7 @@ const SearchPage: React.FC = () => {
           <form onSubmit={handleSubmit}>
             <InputBox
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={handleInputChange}
               inputRef={inputRef}
             >
               <button

@@ -31,7 +31,7 @@ const UserCard: FC<UserCardProps> = ({
 
   return (
     <div className="h-[150px] flex-1">
-      <div className="flex h-[150px] flex-wrap items-center bg-gray-100 p-6 dark:bg-slate-600">
+      <div className="flex h-[150px] flex-wrap items-center bg-[#f7f7f7] p-6 dark:bg-slate-600">
         <div className="mr-4 flex flex-shrink-0">
           <img
             src={avatar ?? getRandomAvatarUrl(name)}

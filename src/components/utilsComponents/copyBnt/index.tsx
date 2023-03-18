@@ -27,7 +27,7 @@ export function CopyButton({ text }: CopyButtonProps) {
           className="text-gray-200 transition duration-200 ease-in-out hover:text-gray-100"
           size={18}
         />
-        <p>{isCopied ? 'Copied' : 'Copy'}</p>
+        {isCopied ? 'Copied' : 'Copy'}
       </div>
     </CopyToClipboard>
   );
