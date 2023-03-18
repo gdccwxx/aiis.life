@@ -59,11 +59,14 @@ const MarkdownRenderer: FC<MarkdownRendererProps> = memo(
                 : ''}
             </a>
           ),
-          ul: ({ ...data }): JSX.Element => (
-            <div className="py-1 font-mono text-sm font-bold">
-              {data.children}
-            </div>
-          ),
+          ul: ({ ...data }): JSX.Element => {
+            const ulChildren = data.children.filter((child) => child != '\n');
+            return (
+              <div className="py-1 font-mono text-sm font-bold">
+                {ulChildren}
+              </div>
+            );
+          },
           ol: ({ children }) => {
             children = children.filter((child) => child != '\n');
             return (

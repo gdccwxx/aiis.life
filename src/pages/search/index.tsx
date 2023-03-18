@@ -118,7 +118,7 @@ const SearchPage: React.FC = () => {
 
         // 获取回答
         await getAnsRander(res.data.id, msg).then((res) => {
-          if (fromUrl) setAskFromUrlLoading(false);
+          if (fromUrl && res) setAskFromUrlLoading(false);
         });
 
         // 更新 tab 和 url 参数
@@ -220,7 +220,7 @@ const SearchPage: React.FC = () => {
         if (sessionList.length === 0) {
           // 新用户
           if (urlAskParam != null) {
-            userAskAndFetchAns(urlAskParam!, true);
+            userAskAndFetchAns(urlAskParam, true);
           } else {
             setMessages([newUserFirstMsgConfig]);
           }
@@ -234,7 +234,7 @@ const SearchPage: React.FC = () => {
           getMsgFromSession(toSessionId);
         } else if (toSessionId === 0 && urlAskParam != null) {
           // 老用户搜索页面进入会话
-          userAskAndFetchAns(urlAskParam!, true);
+          userAskAndFetchAns(urlAskParam, true);
         } else {
           // 默认进入最近的话题
           setActiveIndex(sessionList[0].id);

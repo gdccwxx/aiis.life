@@ -1,4 +1,3 @@
-import toast from '@/ui/toast/toast';
 import { getCookie } from '@/utils/cookie';
 import request from '@/utils/request';
 import { ResTypeChatAns } from './interface/chatMsg';
