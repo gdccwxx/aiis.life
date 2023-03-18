@@ -22,7 +22,6 @@ const MarkdownRenderer: FC<MarkdownRendererProps> = memo(
         children={markdown.toString().replace('/n/n', '/n')}
         components={{
           h1: ({ ...data }): JSX.Element => {
-            console.log(data.children);
             return (
               <h3 className="pt-3 pb-1 text-xl font-bold italic">
                 {data.children}
@@ -80,6 +79,7 @@ const MarkdownRenderer: FC<MarkdownRendererProps> = memo(
               </ol>
             );
           },
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           code({ node, inline, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || '');
             return !inline && match ? (
@@ -138,12 +138,12 @@ const MarkdownRenderer: FC<MarkdownRendererProps> = memo(
             ) : (
               <span
                 className={`mx-[1px] rounded-md bg-gray-100 px-1 py-[2px] font-mono text-sm font-bold dark:bg-gray-700 ${className}`}
-                dangerouslySetInnerHTML={{
-                  __html: String(children).replace('div>', 'span>')
-                }}
+                // dangerouslySetInnerHTML={{
+                //   __html: String(children).replace('div>', 'span>')
+                // }}
                 {...props}
               >
-                {/* {children} */}
+                {children}
               </span>
             );
           }

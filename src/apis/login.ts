@@ -1,3 +1,4 @@
+import { setCookie } from '@/utils/cookie';
 import request from '@/utils/request';
 import { ResTypeLogin, ResTypeRegister } from './interface/login';
 import { ResTypeMe } from './interface/me';
@@ -30,11 +31,11 @@ export const apiUserLoginPost = async (mail: string, code: string) => {
 };
 
 /**
- * @description 登录
+ * @description 获取个人信息
  */
 export const apiMeGet = async () => {
   const currentTime = new Date().getTime();
   const res: ResTypeMe = await request(`/api/v1/user/me`);
-  localStorage.setItem('lastRequestTime', currentTime.toString());
+  setCookie('lastRequestTime', currentTime.toString());
   return res;
 };

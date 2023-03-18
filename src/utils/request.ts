@@ -31,7 +31,6 @@ const inital: RequestOptions = {
 // 发送数据请求
 const request = async (url: string, config?: RequestOptions) => {
   const finalUrl: string = getApiUrl(url);
-  console.log(finalUrl);
   const configs: RequestOptions = { ...inital, ...config };
   if (config && config.headers)
     configs.headers = { ...inital.headers, ...config.headers };

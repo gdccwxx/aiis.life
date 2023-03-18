@@ -8,7 +8,6 @@ import { apiChatPost } from '@/apis/message';
 import toast from '@/ui/toast/toast';
 import { getCookie } from '@/utils/cookie';
 import { Loading } from '@/ui/loading';
-import { v4 as uuidv4 } from 'uuid';
 import {
   firstMsgConfig,
   firstTabConfig,
@@ -87,7 +86,7 @@ const SearchPage: React.FC = () => {
   // 渲染用户消息，并通过 tabIndex 判断是新建 session 还是基于现有的 session 回答
   const userAskAndFetchAns = (msg: string, fromUrl = false) => {
     const newMessage = {
-      id: messages.length + 1,
+      id: messages.length,
       message: msg,
       isAI: false
     };
