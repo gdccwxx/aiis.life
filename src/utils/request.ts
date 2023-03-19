@@ -30,7 +30,13 @@ const inital: RequestOptions = {
 
 // 发送数据请求
 const request = async (url: string, config?: RequestOptions) => {
-  const finalUrl: string = getApiUrl(url);
+  let finalUrl: string;
+  if (url.includes('https')) {
+    finalUrl = url;
+  } else {
+    finalUrl = getApiUrl(url);
+  }
+
   const configs: RequestOptions = { ...inital, ...config };
   if (config && config.headers)
     configs.headers = { ...inital.headers, ...config.headers };

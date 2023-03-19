@@ -1,7 +1,8 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 // import { ConnectButton } from '@mysten/wallet-kit';
 import { ThemeToggle } from '@/components/utilsComponents/themeSwitch/ThemeToggle';
 import { ConnectButton } from '@mysten/wallet-kit';
+import PaymentPopUp from '@/components/utilsComponents/payModal';
 
 type UserCardProps = {
   avatar?: string;
@@ -21,12 +22,25 @@ const UserCard: FC<UserCardProps> = ({
   progress = 0,
   progressMax = 100
 }) => {
+  // 进度条
   const progressPercent = `${(progress / progressMax) * 100}%`;
+
+  // displayName 使用邮箱前缀
   let showName = '';
   if (name.indexOf('@') > 0) {
     showName = name.slice(0, name.indexOf('@'));
   } else {
     showName = name;
+  }
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  function onClose() {
+    setIsOpen(false);
+  }
+
+  function onOpen() {
+    setIsOpen(true);
   }
 
   return (
@@ -49,7 +63,6 @@ const UserCard: FC<UserCardProps> = ({
           <div className="flex content-center text-sm font-medium text-gray-800 dark:text-gray-200">
             <div className="my-2 mr-2">{showName}</div>
             <ThemeToggle />
-
             <div className="flex bg-gray-100 text-gray-800 dark:bg-slate-600 dark:text-gray-200">
               {/* <ThemeSwitch /> */}
               {/* <ThemeSelect /> */}
@@ -63,6 +76,8 @@ const UserCard: FC<UserCardProps> = ({
               />
             </div>
           </div>
+          <div onClick={() => setIsOpen(true)}>congzhi</div>
+          <PaymentPopUp isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
         </div>
       </div>
     </div>
