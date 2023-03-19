@@ -14,20 +14,20 @@ import PayPackage from './package';
 
 type payModalType = {
   isOpen: boolean;
-  onOpen: () => void;
   onClose: () => void;
   buttonTitle?: string | undefined;
 };
 
-function PaymentPopUp({ isOpen, onOpen, onClose, buttonTitle }: payModalType) {
+function PaymentPopUp({ isOpen, onClose, buttonTitle }: payModalType) {
   const theme = localStorage.getItem('theme');
   const bgColor = theme === 'light' ? 'gray.200' : 'gray.700';
   const btnColor = theme === 'light' ? 'gray.300' : 'gray.600';
   const textColor = theme === 'light' ? 'gray.700' : 'gray.300';
 
+  console.log('==========jiazai');
+
   return (
     <>
-      {buttonTitle ? <Button onClick={onOpen}>{buttonTitle}</Button> : ''}
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent bg={bgColor} color={textColor}>
@@ -51,6 +51,7 @@ function PaymentPopUp({ isOpen, onOpen, onClose, buttonTitle }: payModalType) {
             />
           </ModalHeader>
           <ModalBody paddingTop={0}>
+            {/* 套餐包 */}
             <PayPackage />
           </ModalBody>
           <ModalFooter>
@@ -64,4 +65,4 @@ function PaymentPopUp({ isOpen, onOpen, onClose, buttonTitle }: payModalType) {
   );
 }
 
-export default PaymentPopUp;
+export default React.memo(PaymentPopUp);

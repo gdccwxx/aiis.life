@@ -18,8 +18,8 @@ import {
   getQueryString,
   setSearchParam
 } from '@/utils/helpers';
-
-import { ChakraDrawerDemo, SideBar } from './sideBar';
+import ChakraDrawerDemo from './sideBar/ChakraDrawerDemo';
+import SideBar from './sideBar/sideBar';
 
 const SearchPage: React.FC = () => {
   const [messages, setMessages] = useState([firstMsgConfig]);

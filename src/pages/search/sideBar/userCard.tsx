@@ -1,7 +1,6 @@
-import { FC, useState } from 'react';
+import { FC, memo, useState } from 'react';
 // import { ConnectButton } from '@mysten/wallet-kit';
 import { ThemeToggle } from '@/components/utilsComponents/themeSwitch/ThemeToggle';
-import { ConnectButton } from '@mysten/wallet-kit';
 import PaymentPopUp from '@/components/utilsComponents/payModal';
 
 type UserCardProps = {
@@ -83,11 +82,11 @@ const UserCard: FC<UserCardProps> = ({
             </div>
           </div>
 
-          <PaymentPopUp isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+          <PaymentPopUp isOpen={isOpen} onClose={onClose} />
         </div>
       </div>
     </div>
   );
 };
 
-export default UserCard;
+export default memo(UserCard);
