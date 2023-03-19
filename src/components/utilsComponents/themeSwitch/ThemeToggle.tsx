@@ -219,7 +219,7 @@ export function ThemeToggle({ panelClassName = 'm-0' }: any) {
       </Listbox.Button>
       <Listbox.Options
         className={clsx(
-          'dark:highlight-white/5 absolute top-24 right-0 z-50 w-36 overflow-hidden rounded-lg bg-white py-1 text-sm font-semibold text-slate-700 shadow-lg ring-1 ring-slate-900/10 dark:bg-slate-800 dark:text-slate-300 dark:ring-0',
+          'dark:highlight-white/5 absolute top-24 left-20 z-50 w-36 overflow-hidden rounded-lg bg-white py-1 text-sm font-semibold text-slate-700 shadow-lg ring-1 ring-slate-900/10 dark:bg-slate-800 dark:text-slate-300 dark:ring-0',
           panelClassName
         )}
       >
