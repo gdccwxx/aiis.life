@@ -6,7 +6,7 @@ import { ResTypePayCode } from './interface/typePay';
  * @description 获取付款二维码
  */
 export const apiPayCodeGet = async () => {
-  const uid = getCookie('email');
+  const uid = getCookie('userId');
   const res: ResTypePayCode = await request(
     `https://215qspl2.minapp-faas.com/prod/paycode/?uid=${uid}&slug=aiis`
   );

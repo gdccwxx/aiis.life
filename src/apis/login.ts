@@ -37,5 +37,7 @@ export const apiMeGet = async () => {
   const currentTime = new Date().getTime();
   const res: ResTypeMe = await request(`/api/v1/user/me`);
   setCookie('lastRequestTime', currentTime.toString());
+  setCookie('inviteCode', res.data.invite_code);
+  setCookie('userId', res.data.invite_code);
   return res;
 };

@@ -5,6 +5,7 @@ export interface ResTypeMe {
 }
 
 export interface MineData {
+  id: number;
   email: string;
   invite_code: string;
   used: number;
