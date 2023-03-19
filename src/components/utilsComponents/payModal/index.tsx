@@ -52,6 +52,16 @@ function PaymentPopUp({ isOpen, onClose }: payModalType) {
             <PayPackage />
           </ModalBody>
           <ModalFooter>
+            <Button
+              className="mr-3"
+              colorScheme="blue"
+              onClick={() =>
+                window.open('https://github.com/aiis-life/chat-api')
+              }
+            >
+              企业服务
+            </Button>
+            <div className="grow"></div>
             <Button colorScheme="blue" onClick={onClose}>
               关闭
             </Button>
