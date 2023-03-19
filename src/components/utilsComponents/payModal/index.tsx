@@ -15,16 +15,13 @@ import PayPackage from './package';
 type payModalType = {
   isOpen: boolean;
   onClose: () => void;
-  buttonTitle?: string | undefined;
 };
 
-function PaymentPopUp({ isOpen, onClose, buttonTitle }: payModalType) {
+function PaymentPopUp({ isOpen, onClose }: payModalType) {
   const theme = localStorage.getItem('theme');
   const bgColor = theme === 'light' ? 'gray.200' : 'gray.700';
   const btnColor = theme === 'light' ? 'gray.300' : 'gray.600';
   const textColor = theme === 'light' ? 'gray.700' : 'gray.300';
-
-  console.log('==========jiazai');
 
   return (
     <>

@@ -1,4 +1,3 @@
-import toast from '@/ui/toast/toast';
 import { getCookie } from '@/utils/cookie';
 import request from '@/utils/request';
 import { ResTypePayCode } from './interface/typePay';

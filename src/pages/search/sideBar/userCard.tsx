@@ -38,10 +38,6 @@ const UserCard: FC<UserCardProps> = ({
     setIsOpen(false);
   }
 
-  function onOpen() {
-    setIsOpen(true);
-  }
-
   return (
     <div className="h-[150px] flex-1">
       <div className="flex h-[150px] flex-wrap items-center bg-[#f7f7f7] p-6 dark:bg-slate-600">
