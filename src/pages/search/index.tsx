@@ -153,7 +153,7 @@ const SearchPage: React.FC = () => {
       // 赋值 id
       const ansMessage = {
         id: messages.length + 1,
-        message: res.data,
+        message: res.data.answer.content,
         isAI: true
       };
       setMessages((prevMessages) => [...prevMessages, ansMessage]);

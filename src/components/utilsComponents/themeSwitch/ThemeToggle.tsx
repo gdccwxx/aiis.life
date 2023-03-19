@@ -136,14 +136,20 @@ function PcIcon({ selected, ...props }: IconProps) {
 }
 
 export function useTheme() {
-  const systemMode = window.matchMedia('(prefers-color-scheme: dark)').matches
-    ? 'dark'
-    : 'light';
+  let systemMode: string;
+  const theme = localStorage.getItem('theme');
+  if (theme === 'light' || theme === 'dark') {
+    systemMode = theme;
+  } else {
+    systemMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+  }
   const [setting, setSetting] = useState(systemMode);
   const initial = useRef(true);
 
   useIsomorphicLayoutEffect(() => {
-    const theme = localStorage.theme;
+    const theme = localStorage.getItem('theme');
     if (theme === 'light' || theme === 'dark') {
       setSetting(theme);
     } else {
@@ -156,6 +162,8 @@ export function useTheme() {
       localStorage.removeItem('theme');
     } else if (setting === 'light' || setting === 'dark') {
       localStorage.theme = setting;
+      localStorage.setItem('theme', setting);
+      console.log(localStorage.getItem('theme'));
     }
     if (initial.current) {
       initial.current = false;

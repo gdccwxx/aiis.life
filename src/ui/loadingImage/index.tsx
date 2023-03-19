@@ -1,57 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import clsx from 'clsx';
+import React, { useState } from 'react';
 import { Loading } from '../loading';
-import { apiPayCodeGet } from '@/apis/pay';
 
-interface ImageComponentProps {
-  src: string;
-  alt: string;
-  width: string;
-  height: string;
+interface Props {
+  src?: string;
+  className?: string;
 }
 
-const ImageComponent: React.FC<ImageComponentProps> = ({
-  src,
-  alt,
-  width,
-  height
-}) => {
-  const [base64, setBase64] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [fade, setFade] = useState<boolean>(false);
+const Image: React.FC<Props> = ({ src, className }) => {
+  const [loading, setLoading] = useState(true);
+  const [fadeIn, setFadeIn] = useState(false);
 
-  useEffect(() => {
-    apiPayCodeGet().then((res) => {
-      setBase64(res.image);
+  const handleLoad = () => {
+    setTimeout(() => {
       setLoading(false);
-      setTimeout(() => {
-        setFade(true);
-      }, 500);
-    });
-  }, [src]);
+      setFadeIn(true);
+    }, 400);
+  };
+
+  const imageStyle = `w-full h-full object-cover rounded-lg ${
+    fadeIn ? 'opacity-100' : 'opacity-0'
+  }`;
+  const loadingStyle = `w-full h-full flex items-center justify-center rounded-lg bg-gray-300 ${
+    fadeIn ? 'opacity-0' : 'opacity-100'
+  }`;
 
   return (
-    <div className={clsx('relative h-full w-full')}>
-      {loading && (
-        <div
-          className={clsx(
-            'flex h-full w-full items-center justify-center bg-gray-300 shadow-sm'
-          )}
-        >
-          <Loading />
-        </div>
-      )}
-      {!loading && (
-        <img
-          className={clsx(
-            `w-${width} h-${height} ${fade ? 'fade-in' : 'hidden'}`
-          )}
-          src={`${base64}`}
-          alt={alt}
-        />
-      )}
+    <div className={`relative overflow-hidden ${className}`}>
+      <img src={src} onLoad={handleLoad} className={imageStyle} />
+      <div className={loadingStyle}>{(loading || !src) && <Loading />}</div>
     </div>
   );
 };
 
-export default ImageComponent;
+export default Image;

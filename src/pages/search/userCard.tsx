@@ -66,6 +66,12 @@ const UserCard: FC<UserCardProps> = ({
             <div className="flex bg-gray-100 text-gray-800 dark:bg-slate-600 dark:text-gray-200">
               {/* <ThemeSwitch /> */}
               {/* <ThemeSelect /> */}
+              <div
+                className="my-2 ml-1 cursor-pointer font-sans font-bold text-blue-400"
+                onClick={() => setIsOpen(true)}
+              >
+                充值
+              </div>
             </div>
           </div>
           <div className="mt-1">
@@ -76,7 +82,7 @@ const UserCard: FC<UserCardProps> = ({
               />
             </div>
           </div>
-          <div onClick={() => setIsOpen(true)}>congzhi</div>
+
           <PaymentPopUp isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
         </div>
       </div>
