@@ -90,7 +90,7 @@ export const ChakraDrawerDemo: React.FC<SideBarProps> = ({
         ''
       ) : (
         <button
-          className="absolute top-0 left-0 h-12 w-12 transform items-center justify-center rounded-br-full bg-blue-500"
+          className="absolute top-0 left-0 h-12 w-12 transform items-center justify-center rounded-br-full bg-blue-600"
           onClick={onOpen}
         >
           <FiMenu
