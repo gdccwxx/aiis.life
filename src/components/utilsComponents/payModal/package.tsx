@@ -72,18 +72,18 @@ function PayPackage(): JSX.Element {
   const plans: PlanProps[] = [
     {
       name: '月度套餐',
-      price: '19.9',
+      price: '25',
       description: '可使用 30 天，存储最多 1000 条数据'
     },
     {
       name: '季度套餐',
-      price: '54',
+      price: '56',
       description: '可使用 90 天，存储最多 3000 条数据'
     },
     {
       name: '年度豪华套餐',
       price: '188',
-      description: '可使用 365 天，存储最多 1.2w 条数据'
+      description: '可用 1 年，用量 1.2w 条，可提供 API 服务'
     }
   ];
 
