@@ -1,7 +1,7 @@
 import { LoadingPage } from '@/ui/loading';
 import { FC, memo, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import IssueTab from '../IssueTab';
+import IssueTab from './IssueTab';
 import UserCard from './userCard';
 import {
   Drawer,
