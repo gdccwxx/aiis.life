@@ -7,17 +7,18 @@ import Layout from '@/components/layout';
 import Loadable from '@/components/Loadable';
 import SearchPage from '@/pages/search';
 import Read from '@/pages/read';
+import { getCookie } from '@/utils/cookie';
 
 const Admin = Loadable(lazy(() => import('@/pages/admin')));
 const Home = Loadable(lazy(() => import('@/pages/home')));
-
+const logined = getCookie('token') != undefined;
 const MainRoutes = {
   path: '/',
   element: <Layout />,
   children: [
     {
       path: '/',
-      element: <Navigate to="/home" />
+      element: <Navigate to={logined ? '/search' : '/home'} />
     },
     {
       path: '/admin',

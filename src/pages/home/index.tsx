@@ -4,7 +4,7 @@ import EdgeWidget from './edge';
 
 const Home = (): JSX.Element => {
   return (
-    <div className="w-full items-center justify-center">
+    <div className="w-full items-center justify-center bg-black">
       <HomeBanner />
       <EdgeWidget />
       <Footer />
