@@ -65,11 +65,11 @@ const ChakraDrawerDemo: FC<SideBarProps> = ({
         onOverlayClick={onClose}
       >
         <DrawerOverlay className="h-full w-full transform bg-slate-800 bg-opacity-60">
-          <DrawerContent>
-            <DrawerBody>
+          <DrawerContent className="w-full">
+            <DrawerBody className="w-full" width={'100%'} padding={0}>
               <div className="flex">
                 <div className="w-9/12">
-                  <div className="absolute top-0 flex h-[150px] w-9/12">
+                  <div className="absolute top-0 flex h-[150px] w-full">
                     <UserCard
                       name={name}
                       progress={progress}
@@ -85,7 +85,7 @@ const ChakraDrawerDemo: FC<SideBarProps> = ({
                       </button>
                     </div>
                   </div>
-                  <div className="absolute top-[150px] bottom-0 flex w-9/12 flex-col overflow-y-scroll">
+                  <div className="absolute top-[150px] bottom-0 flex w-full flex-col overflow-y-scroll">
                     {tabPageLoading || askFromUrlLoading ? (
                       <LoadingPage />
                     ) : (
@@ -105,7 +105,6 @@ const ChakraDrawerDemo: FC<SideBarProps> = ({
                     )}
                   </div>
                 </div>
-                <div className="h-screen w-3/12" onClick={onClose} />
               </div>
             </DrawerBody>
           </DrawerContent>
