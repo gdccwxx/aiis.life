@@ -82,7 +82,7 @@ function PayPackage(): JSX.Element {
     },
     {
       name: '年度豪华套餐',
-      price: '188',
+      price: '235',
       description: '可用 1 年，用量 1.2w 条，可提供 API 服务'
     }
   ];
