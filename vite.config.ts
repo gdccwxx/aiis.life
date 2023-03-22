@@ -59,19 +59,19 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         '/api': {
           target:
             mode === 'alpha'
-              ? 'http://alpha-ai.exql.net'
+              ? 'http://alpha-api.aiis.life'
               : mode === 'test'
-              ? 'http://ai.exql.net'
+              ? 'http://api.aiis.life'
               : mode === 'grey'
-              ? 'https://ai.exql.net'
+              ? 'https://api.aiis.life'
               : mode === 'prod'
-              ? 'https://ai.exql.net'
+              ? 'https://api.aiis.life'
               : 'http://0.0.0.0:3000',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '')
         },
         '/ohter-api': {
-          target: 'http://other-ai.exql.net',
+          target: 'http://other-api.aiis.life',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/ohter-api/, '')
         }

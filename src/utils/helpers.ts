@@ -6,22 +6,22 @@ export const getBaseUrl = (url: string): string => {
   if (process.env.NODE_ENV === 'development') {
     // 开发环境 - 根据请求不同返回不同的BASE_URL
     if (url.includes('/api/')) {
-      BASE_URL = 'http://ai.exql.net/api';
+      BASE_URL = 'http://api.aiis.life/api';
     } else if (url.includes('/other-api/')) {
-      BASE_URL = 'http://test-other-ai.exql.net';
+      BASE_URL = 'http://test-other-api.aiis.life';
     } else {
-      BASE_URL = 'http://ai.exql.net';
+      BASE_URL = 'http://api.aiis.life';
     }
   } else if (process.env.NODE_ENV === 'mock') {
     BASE_URL = '';
   } else {
     // 生产环境
     if (url.includes('/api/')) {
-      BASE_URL = 'https://ai.exql.net/api';
+      BASE_URL = 'https://api.aiis.life/api';
     } else if (url.includes('/other-api/')) {
-      BASE_URL = 'https://other-ai.exql.net';
+      BASE_URL = 'https://other-api.aiis.life';
     } else {
-      BASE_URL = 'https://ai.exql.net/api';
+      BASE_URL = 'https://api.aiis.life/api';
     }
     // 用于将api地址转换成https
     BASE_URL = BASE_URL.replace('http://', 'https://');
