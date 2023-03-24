@@ -11,7 +11,7 @@ import { getCookie } from '@/utils/cookie';
 
 const Admin = Loadable(lazy(() => import('@/pages/admin')));
 const Home = Loadable(lazy(() => import('@/pages/home')));
-const logined = getCookie('token') != undefined;
+const logined = getCookie('token') != undefined && getCookie('token') != '';
 const MainRoutes = {
   path: '/',
   element: <Layout />,
