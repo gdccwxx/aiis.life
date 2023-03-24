@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Button,
   IconButton,
@@ -11,6 +11,10 @@ import {
 } from '@chakra-ui/react';
 import { FaTimes } from 'react-icons/fa';
 import PayPackage from './package';
+import { apiPayCodeGet } from '@/apis/pay';
+import toast from '@/ui/toast/toast';
+import { apiMeGet } from '@/apis/login';
+import { getCookie } from '@/utils/cookie';
 
 type payModalType = {
   isOpen: boolean;
@@ -23,9 +27,81 @@ function PaymentPopUp({ isOpen, onClose }: payModalType) {
   const btnColor = theme === 'light' ? 'gray.300' : 'gray.600';
   const textColor = theme === 'light' ? 'gray.700' : 'gray.300';
 
+  const [payCodeUrl, setPayCodeUrl] = useState<string | undefined>(undefined);
+  const [callTimes, setCallTimes] = useState<number>(0);
+  const [isClose, setIsClose] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isOpen && !isClose) {
+      setIsClose(false);
+      setCallTimes(0); // Reset the call time
+      getCode();
+    } else {
+      // callStopOnClose();
+    }
+  }, [isOpen, isClose]);
+
+  const getCode = async () => {
+    const res = await apiPayCodeGet();
+    if (res.data.qrcode === 'error') {
+      toast.warning('为了保证安全，本次支付需要请重新登录');
+      const currentUrl = window.location.href;
+      window.location.replace(
+        `/login?redirectUrl=${encodeURIComponent(currentUrl)}`
+      );
+    } else if (isOpen && !isClose) {
+      setPayCodeUrl(res.data.qrcode);
+      // 轮询
+      console.log('555===');
+      pollPay();
+    } else if (isClose) {
+      console.log(isClose, '222');
+      return;
+    }
+  };
+
+  const callStopOnClose = () => {
+    setIsClose(true);
+
+    setTimeout(() => onClose(), 200);
+    setTimeout(() => console.log(isClose, '666'), 200);
+  };
+
+  const pollPay = async () => {
+    if (isClose) return false;
+    const ifPaySuccess = await apiMeGet().then((res) => {
+      const paySuccess = getCookie('lastPaidAt') !== res.data.last_paid_at;
+      if (paySuccess) {
+        // 如果支付成功直接返回结果
+        toast.success('支付成功');
+        return paySuccess;
+      } else {
+        // 如果未支付成功，则继续轮询
+        setCallTimes((prevCount) => prevCount + 1);
+        if (isClose) return false;
+      }
+    });
+    if (ifPaySuccess) {
+      return true;
+    } else if (!ifPaySuccess && !isClose) {
+      setTimeout(() => {
+        if (isClose) return false;
+        if (callTimes > 90) {
+          toast.warning('支付超时');
+          return false;
+        }
+        console.log('555', isClose);
+
+        pollPay();
+      }, 2000); // 2 秒后再次调用该方法
+    } else {
+      return false;
+    }
+  };
+
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+      <Modal isOpen={isOpen} onClose={callStopOnClose} size="xl">
         <ModalOverlay />
         <ModalContent bg={bgColor} color={textColor}>
           <ModalHeader
@@ -42,14 +118,14 @@ function PaymentPopUp({ isOpen, onClose }: payModalType) {
                 transition: 'background-color 0.3s ease-out'
               }}
               icon={<FaTimes />}
-              onClick={onClose}
+              onClick={callStopOnClose}
               size="sm"
               border="none"
             />
           </ModalHeader>
           <ModalBody paddingTop={0}>
             {/* 套餐包 */}
-            <PayPackage />
+            <PayPackage payCodeUrl={payCodeUrl} />
           </ModalBody>
           <ModalFooter>
             <Button
@@ -62,7 +138,7 @@ function PaymentPopUp({ isOpen, onClose }: payModalType) {
               企业服务
             </Button>
             <div className="grow"></div>
-            <Button colorScheme="blue" onClick={onClose}>
+            <Button colorScheme="blue" onClick={callStopOnClose}>
               关闭
             </Button>
           </ModalFooter>

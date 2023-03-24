@@ -1,3 +1,9 @@
 export interface ResTypePayCode {
-  image: string;
+  code: number;
+  msg: string;
+  data: PayData;
+}
+
+export interface PayData {
+  qrcode: string;
 }

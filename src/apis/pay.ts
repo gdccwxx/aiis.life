@@ -10,11 +10,9 @@ export const apiPayCodeGet = async () => {
   const meRes = await apiMeGet();
   const uid = getCookie('userId');
   if (meRes.data.id.toString() == uid?.toString()) {
-    const res: ResTypePayCode = await request(
-      `https://215qspl2.minapp-faas.com/prod/paycode/?uid=${uid}&slug=aiis`
-    );
+    const res: ResTypePayCode = await request(`/api/v1/package/paycode`);
     return res;
   } else {
-    return { image: 'error' };
+    return { data: { qrcode: 'error' } };
   }
 };

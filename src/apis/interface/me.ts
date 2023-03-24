@@ -5,10 +5,11 @@ export interface ResTypeMe {
 }
 
 export interface MineData {
-  id: number;
   email: string;
   invite_code: string;
+  id: number;
   used: number;
   quota: number;
   expired_quota: number;
+  last_paid_at: string;
 }

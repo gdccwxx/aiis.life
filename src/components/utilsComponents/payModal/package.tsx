@@ -1,7 +1,5 @@
-import { apiPayCodeGet } from '@/apis/pay';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Image from '@/ui/loadingImage';
-import toast from '@/ui/toast/toast';
 
 interface PlanProps {
   name: string;
@@ -48,27 +46,11 @@ function Plan({
 
 const MemoizedPlan = React.memo(Plan);
 
-function PayPackage(): JSX.Element {
-  const [payCodeUrl, setPayCodeUrl] = useState<string | undefined>(undefined);
-  const firstLoad = useRef(true);
+interface PayPackageProps {
+  payCodeUrl?: string;
+}
 
-  useEffect(() => {
-    if (firstLoad.current) {
-      apiPayCodeGet().then((res) => {
-        if (res.image == 'error') {
-          toast.warning('为了保证安全，本次支付需要请重新登录');
-          const currentUrl = window.location.href;
-          window.location.replace(
-            `/login?redirectUrl=${encodeURIComponent(currentUrl)}`
-          );
-        } else {
-          setPayCodeUrl(res.image);
-        }
-        firstLoad.current = false;
-      });
-    }
-  }, []);
-
+function PayPackage({ payCodeUrl }: PayPackageProps): JSX.Element {
   const plans: PlanProps[] = [
     {
       name: '月度套餐',

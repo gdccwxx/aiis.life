@@ -39,5 +39,6 @@ export const apiMeGet = async () => {
   setCookie('lastRequestTime', currentTime.toString());
   setCookie('inviteCode', res.data.invite_code);
   setCookie('userId', res.data.id.toString());
+  setCookie('lastPaidAt', res.data.last_paid_at.toString());
   return res;
 };
