@@ -31,15 +31,27 @@ function PaymentPopUp({ isOpen, onClose }: payModalType) {
   const [callTimes, setCallTimes] = useState<number>(0);
   const [isClose, setIsClose] = useState<boolean>(false);
 
+  const pollInterval = useRef<any>(null);
+
   useEffect(() => {
     if (isOpen && !isClose) {
-      setIsClose(false);
       setCallTimes(0); // Reset the call time
-      getCode();
+      pollInterval.current = setInterval(() => {
+        // TODO: 发起api请求
+        pollPay();
+      }, 3000);
+    } else if (isOpen) {
+      // 第一次打开关闭后 isClose 是 false, 第二次打开 需要设置成 false
+      clearInterval(pollInterval.current);
+      setIsClose(false);
     } else {
-      // callStopOnClose();
+      clearInterval(pollInterval.current);
     }
   }, [isOpen, isClose]);
+
+  useEffect(() => {
+    if (isOpen) getCode();
+  }, []);
 
   const getCode = async () => {
     const res = await apiPayCodeGet();
@@ -51,20 +63,12 @@ function PaymentPopUp({ isOpen, onClose }: payModalType) {
       );
     } else if (isOpen && !isClose) {
       setPayCodeUrl(res.data.qrcode);
-      // 轮询
-      console.log('555===');
-      pollPay();
-    } else if (isClose) {
-      console.log(isClose, '222');
-      return;
     }
   };
 
   const callStopOnClose = () => {
     setIsClose(true);
-
-    setTimeout(() => onClose(), 200);
-    setTimeout(() => console.log(isClose, '666'), 200);
+    setTimeout(() => onClose(), 20);
   };
 
   const pollPay = async () => {
@@ -84,16 +88,10 @@ function PaymentPopUp({ isOpen, onClose }: payModalType) {
     if (ifPaySuccess) {
       return true;
     } else if (!ifPaySuccess && !isClose) {
-      setTimeout(() => {
-        if (isClose) return false;
-        if (callTimes > 90) {
-          toast.warning('支付超时');
-          return false;
-        }
-        console.log('555', isClose);
-
-        pollPay();
-      }, 2000); // 2 秒后再次调用该方法
+      if (callTimes > 90) {
+        toast.warning('支付超时');
+        return false;
+      }
     } else {
       return false;
     }
