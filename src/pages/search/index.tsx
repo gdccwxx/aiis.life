@@ -272,43 +272,49 @@ const SearchPage: React.FC = () => {
         tabPageLoading={tabPageLoading}
         askFromUrlLoading={askFromUrlLoading}
       />
-      <div
-        className="h-screen w-full divide-y divide-gray-200 rounded-lg shadow-xl dark:divide-gray-700 md:w-3/4"
-        onAnimationEnd={handleAnimationEnd}
-      >
-        {/* msg 列表 */}
+      <div className="flex h-full flex-1 flex-col md:pl-[260px]">
         <div
-          className="absolute top-0 bottom-[145px] w-full overflow-y-scroll px-4 pt-3 md:w-3/4"
-          ref={chatRef}
+          className="transition-width relative flex h-full w-full flex-1 flex-col items-stretch overflow-hidden"
+          onAnimationEnd={handleAnimationEnd}
         >
-          {msgPageLoading ? (
-            <Loading />
-          ) : (
-            messages.map((message) => (
-              <ChatMessage
-                key={message.id}
-                message={message.message}
-                isAI={message.isAI}
-              />
-            ))
-          )}
-        </div>
-        {/* 底部输入框 */}
-        <div className="absolute bottom-0 w-full bg-gray-50 p-4 dark:bg-gray-900 md:w-3/4">
-          <form onSubmit={handleSubmit}>
-            <InputBox
-              value={inputValue}
-              onChange={handleInputChange}
-              inputRef={inputRef}
+          {/* msg 列表 */}
+          <div
+            className="h-full w-full overflow-y-scroll px-4 pt-3"
+            ref={chatRef}
+          >
+            {msgPageLoading ? (
+              <Loading />
+            ) : (
+              messages.map((message) => (
+                <ChatMessage
+                  key={message.id}
+                  message={message.message}
+                  isAI={message.isAI}
+                />
+              ))
+            )}
+            <div className="h-32 w-full flex-shrink-0 md:h-24" />
+          </div>
+          {/* 底部输入框 */}
+          <div className="md:bg-vert-light-gradient dark:md:bg-vert-dark-gradient absolute bottom-0 left-0 w-full border-t bg-white pt-2 dark:border-white/20 dark:bg-gray-800 md:border-t-0 md:border-transparent md:!bg-transparent md:dark:border-transparent">
+            <form
+              onSubmit={handleSubmit}
+              className="stretch mx-2 flex flex-row gap-3 last:mb-2 md:mx-4 md:last:mb-6 lg:mx-auto lg:max-w-3xl"
             >
-              <button
-                type="submit"
-                className="w-14 rounded-r bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+              <InputBox
+                value={inputValue}
+                onChange={handleInputChange}
+                inputRef={inputRef}
               >
-                <IconSearch className="h-6 w-6" />
-              </button>
-            </InputBox>
-          </form>
+                <button
+                  type="submit"
+                  className="w-14 rounded-r bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+                >
+                  <IconSearch className="h-6 w-6" />
+                </button>
+              </InputBox>
+            </form>
+          </div>
         </div>
         {/* 移动端显示的抽屉按钮 */}
         <div className="visible absolute z-20 md:invisible md:hidden">

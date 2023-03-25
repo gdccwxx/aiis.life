@@ -1,7 +1,8 @@
 import { FC, memo, useState } from 'react';
 // import { ConnectButton } from '@mysten/wallet-kit';
 import { ThemeToggle } from '@/components/utilsComponents/themeSwitch/ThemeToggle';
-import PaymentPopUp from '@/components/utilsComponents/payModal';
+// import PaymentPopUp from '@/components/utilsComponents/payModal';
+import PaymentPopUp from '@/components/utilsComponents/connectModal';
 
 type UserCardProps = {
   avatar?: string;
@@ -40,12 +41,12 @@ const UserCard: FC<UserCardProps> = ({
 
   return (
     <div className="h-[150px] flex-1">
-      <div className="flex h-[150px] flex-wrap items-center bg-[#f7f7f7] p-6 dark:bg-slate-600">
+      <div className="flex h-[150px] flex-wrap items-center p-6">
         <div className="mr-4 flex flex-shrink-0">
           <img
             src={avatar ?? getRandomAvatarUrl(name)}
             alt="Avatar"
-            className="h-12 w-12 rounded-full"
+            className="h-[32px] w-[32px] rounded-full"
           />
           {/* <ConnectButton
             className="mt-1 mr-2 p-1 shadow-none dark:text-gray-200"
@@ -54,16 +55,19 @@ const UserCard: FC<UserCardProps> = ({
             }
           /> */}
         </div>
-        <div className="mt-2">
-          <div className="flex content-center text-sm font-medium text-gray-800 dark:text-gray-200">
+        <div className="mt-[-12px]">
+          <div className="flex content-center bg-gray-800 pl-[10px] text-sm font-medium text-gray-800 dark:text-gray-200">
             <div className="my-2 mr-2">{showName}</div>
             <ThemeToggle />
-            <div className="flex bg-gray-100 text-gray-800 dark:bg-slate-600 dark:text-gray-200">
+            <div className="flex text-gray-800 dark:text-gray-200">
               {/* <ThemeSwitch /> */}
               {/* <ThemeSelect /> */}
               <div
                 className="my-2 ml-1 cursor-pointer font-sans font-bold text-blue-400"
-                onClick={() => setIsOpen(true)}
+                onClick={() => {
+                  // console.log('here');
+                  setIsOpen(true);
+                }}
               >
                 充值
               </div>

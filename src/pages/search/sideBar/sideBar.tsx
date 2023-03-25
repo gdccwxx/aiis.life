@@ -16,11 +16,11 @@ const SideBar: FC<SideBarProps> = ({
   askFromUrlLoading
 }) => {
   return (
-    <div className="invisible w-0 md:visible md:w-1/4">
-      <div className="absolute top-0 flex h-[150px] w-0 flex-col md:w-1/4 ">
+    <div className="dark hidden bg-gray-900 md:fixed md:inset-y-0 md:flex md:w-[260px] md:flex-col">
+      <div className="top-0 flex h-[150px] w-full ">
         <UserCard name={name} progress={progress} progressMax={progressMax} />
       </div>
-      <div className="absolute top-[150px] bottom-0 flex w-0 flex-col overflow-y-scroll md:w-1/4">
+      <div className="flex-1 flex-col overflow-y-auto border-b border-white/20 py-3">
         {tabPageLoading || askFromUrlLoading ? (
           <LoadingPage />
         ) : (
