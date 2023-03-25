@@ -7,6 +7,7 @@ import {
   ModalFooter,
   ModalOverlay
 } from '@chakra-ui/react';
+
 import QYWechat from './qy-wechat.jpg';
 
 type payModalType = {
