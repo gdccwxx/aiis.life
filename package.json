@@ -45,6 +45,7 @@
     "clsx": "^1.2.1",
     "ethers": "5.7.0",
     "framer-motion": "^7.2.1",
+    "gsap": "^3.11.5",
     "lottie-react": "^2.3.1",
     "postcss": "^8.4.16",
     "rc-tooltip": "^6.0.1",
