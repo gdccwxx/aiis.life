@@ -1,9 +1,11 @@
+import ConnectModal from '@/components/utilsComponents/connectModal';
 import { LoadingPage } from '@/ui/loading';
-import { FC, memo } from 'react';
+import { FC, memo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import IssueTab from './IssueTab';
 import { SideBarProps } from './types';
-import UserCard from './userCard';
+import vip from './img/vip.png';
+// import UserCard from './userCard';
 
 const SideBar: FC<SideBarProps> = ({
   tabs,
@@ -15,6 +17,10 @@ const SideBar: FC<SideBarProps> = ({
   tabPageLoading,
   askFromUrlLoading
 }) => {
+  const [isOpen, setOpen] = useState(false);
+  const onClose = () => {
+    setOpen(false);
+  };
   return (
     <div className="dark hidden bg-gray-900 md:fixed md:inset-y-0 md:flex md:w-[260px] md:flex-col">
       <div className="flex h-full min-h-0 flex-col ">
@@ -52,24 +58,14 @@ const SideBar: FC<SideBarProps> = ({
                 ))
               )}
             </div>
-            <a className="flex cursor-pointer items-center gap-3 rounded-md p-3 text-sm text-white transition-colors duration-200 hover:bg-gray-500/10">
-              <svg
-                stroke="currentColor"
-                fill="none"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-4 w-4"
-                height="1em"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-              我的账户
+            <a
+              className="flex cursor-pointer items-center gap-3 rounded-md p-3 text-sm text-white transition-colors duration-200 hover:bg-gray-500/10"
+              onClick={() => setOpen(true)}
+            >
+              <img alt="vip" src={vip} />
+              会员服务
             </a>
+            <ConnectModal isOpen={isOpen} onClose={onClose} />
             {/* <a className="flex cursor-pointer items-center gap-3 rounded-md p-3 text-sm text-white transition-colors duration-200 hover:bg-gray-500/10">
               <svg
                 stroke="currentColor"
