@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useState } from 'react';
+import cn from 'classnames';
 
 interface IssueTabProps {
   isActive: boolean;
@@ -16,13 +17,16 @@ const IssueTab: React.FC<IssueTabProps> = ({
   children
 }) => {
   return (
-    <div className="bg-gray-200 dark:bg-gray-700">
+    <div
+      className={cn(
+        'group relative flex cursor-pointer items-center gap-3 break-all rounded-md p-3 hover:bg-[#2A2B32] hover:pr-4',
+        {
+          'bg-[#2A2B32]': isActive
+        }
+      )}
+    >
       <button
-        className={`my-[2px] w-full rounded-l-xl py-3 px-4 text-left font-mono text-sm font-bold transition-colors duration-75 ${
-          isActive
-            ? 'bg-blue-600 text-gray-100 hover:bg-blue-500 dark:bg-blue-700 dark:text-gray-200'
-            : 'bg-gray-200 text-gray-800 hover:bg-blue-50 dark:bg-gray-700 dark:text-gray-400'
-        } ${className}`}
+        className={`my-[2px] w-full rounded-l-xl text-left font-mono text-sm font-bold text-white transition-colors duration-75 ${className}`}
         onClick={onClick}
       >
         {children ?? title}

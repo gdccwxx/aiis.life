@@ -261,7 +261,7 @@ const SearchPage: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100 dark:bg-gray-800">
+    <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
       <SideBar
         tabs={tabs}
         activeIndex={activeIndex}
@@ -272,7 +272,7 @@ const SearchPage: React.FC = () => {
         tabPageLoading={tabPageLoading}
         askFromUrlLoading={askFromUrlLoading}
       />
-      <div className="flex h-full flex-1 flex-col md:pl-[260px]">
+      <div className="flex h-full flex-1 flex-col bg-white md:pl-[260px]">
         <div
           className="transition-width relative flex h-full w-full flex-1 flex-col items-stretch overflow-hidden"
           onAnimationEnd={handleAnimationEnd}
@@ -296,7 +296,7 @@ const SearchPage: React.FC = () => {
             <div className="h-32 w-full flex-shrink-0 md:h-24" />
           </div>
           {/* 底部输入框 */}
-          <div className="md:bg-vert-light-gradient dark:md:bg-vert-dark-gradient absolute bottom-0 left-0 w-full border-t bg-white pt-2 dark:border-white/20 dark:bg-gray-800 md:border-t-0 md:border-transparent md:!bg-transparent md:dark:border-transparent">
+          <div className="md:bg-vert-light-gradient dark:md:bg-vert-dark-gradient absolute bottom-0 left-0 w-full border-t bg-white pt-2 dark:border-white/20 md:border-t-0 md:border-transparent md:!bg-transparent md:dark:border-transparent">
             <form
               onSubmit={handleSubmit}
               className="stretch mx-2 flex flex-row gap-3 last:mb-2 md:mx-4 md:last:mb-6 lg:mx-auto lg:max-w-3xl"
@@ -306,11 +306,28 @@ const SearchPage: React.FC = () => {
                 onChange={handleInputChange}
                 inputRef={inputRef}
               >
-                <button
+                {/* <button
                   type="submit"
                   className="w-14 rounded-r bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
                 >
                   <IconSearch className="h-6 w-6" />
+                </button> */}
+                <button className="absolute right-[20px] top-[20px] rounded-md p-1 text-gray-500 hover:bg-gray-100 disabled:hover:bg-transparent dark:disabled:hover:bg-transparent">
+                  <svg
+                    stroke="currentColor"
+                    fill="none"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="mr-1 h-4 w-4"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
                 </button>
               </InputBox>
             </form>
