@@ -43,11 +43,13 @@ const rain = () => {
     self.setSize();
     self.setTracker();
     self.init();
-    return self;
+    // return self;
   };
 
   // Sending back a column Object that represents the state of a column
-  DigitalRain.prototype.setColumn = function (column = {}) {
+  DigitalRain.prototype.setColumn = function (
+    column: { len?: any; destination?: any; chars?: any } = {}
+  ) {
     const self = this;
     const { glyphs } = self;
     // Set a destination and record len && lastLen
@@ -66,7 +68,7 @@ const rain = () => {
     const cacheChars = [...chars];
 
     chars = new Array(Math.max(destination, chars.length))
-      .fill()
+      .fill(undefined)
       .map((entry, index) => {
         if (index <= destination) {
           return self.glyphs[gsap.utils.random(0, self.glyphs.length - 1, 1)];
@@ -95,7 +97,9 @@ const rain = () => {
 
   DigitalRain.prototype.setTracker = function () {
     const self = this;
-    self.tracker = new Array(self.columns).fill().map(() => self.setColumn());
+    self.tracker = new Array(self.columns)
+      .fill(undefined)
+      .map(() => self.setColumn());
   };
 
   DigitalRain.prototype.reset = function () {
